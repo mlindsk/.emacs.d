@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: as.matrix
+# key: asm
+# condition: (string= "S" ess-language)
+# group: Coerce (as)
+# --
+as.matrix($0)

@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: browser
+# key: br
+# condition: (string= "S" ess-language)
+# group: Debugging
+# --
+browser()$0

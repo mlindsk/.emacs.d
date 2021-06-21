@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: length
+# key: len
+# condition: (string= "S" ess-language)
+# group: Misc
+# --
+length(${1:x})

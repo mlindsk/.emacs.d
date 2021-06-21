@@ -1,0 +1,15 @@
+#+STARTUP: overview 
+#+PROPERTY: header-args :comments yes :results silent
+
+* Yasnippets
+
+#+BEGIN_SRC emacs-lisp
+
+(with-eval-after-load 'ess
+  (autoload 'yasnippet "yasnippet" "" t)
+  (require 'yasnippet)
+  (setq yas-snippet-dirs '("~/.emacs.d/snippets"))
+  (yas-global-mode 1)
+) ;; end with-eval-after-load
+#+END_SRC
+

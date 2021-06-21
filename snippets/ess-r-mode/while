@@ -1,0 +1,9 @@
+# -*- mode: snippet -*-
+# name: while
+# key: while
+# condition: (string= "S" ess-language)
+# group: Flow Control
+# --
+while ($1) {
+    $0
+}

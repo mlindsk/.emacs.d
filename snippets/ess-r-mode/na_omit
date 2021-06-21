@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: na.omit
+# key: nao
+# condition: (string= "S" ess-language)
+# group: Misc
+# --
+na.omit($0)

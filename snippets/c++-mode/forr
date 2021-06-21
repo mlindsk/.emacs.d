@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: for_ranged
+# key: forr
+# --
+for (auto & e : ${3:var}) {
+    $0
+}

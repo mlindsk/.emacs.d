@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: library
+# key: lib
+# group: pkg
+# --
+library($0)

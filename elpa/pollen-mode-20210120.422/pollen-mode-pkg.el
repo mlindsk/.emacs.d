@@ -1,0 +1,2 @@
+;;; -*- no-byte-compile: t -*-
+(define-package "pollen-mode" "20210120.422" "major mode for editing pollen files" '((emacs "24.3") (cl-lib "0.5")) :stars '(#("14" 0 2 (font-lock-face paradox-star-face))) :commit "09a9dc48c468dcd385982b9629f325e70d569faf" :authors '(("Junsong Li <ljs.darkfish AT GMAIL>")) :maintainer '("Junsong Li") :keywords '("languages" "pollen" "pollenpub") :url "https://github.com/lijunsong/pollen-mode")

@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: untrace
+# key: utr
+# condition: (string= "S" ess-language)
+# group: Debugging
+# --
+untrace($1)$0

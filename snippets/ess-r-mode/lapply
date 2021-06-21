@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: lapply
+# key: lap
+# group: *apply family
+# --
+lapply($1, function(x) $0)

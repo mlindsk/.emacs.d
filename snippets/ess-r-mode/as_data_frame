@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: as.data.frame
+# key: asd
+# condition: (string= "S" ess-language)
+# group: Coerce (as)
+# --
+as.data.frame($0)

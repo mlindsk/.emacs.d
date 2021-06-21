@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: trace
+# key: tr
+# condition: (string= "S" ess-language)
+# group: Debugging
+# --
+trace($1, tracer = browser, at = $2)$0

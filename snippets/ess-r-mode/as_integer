@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: as.integer
+# key: asi
+# condition: (string= "S" ess-language)
+# group: Coerce (as)
+# --
+as.integer($0)
