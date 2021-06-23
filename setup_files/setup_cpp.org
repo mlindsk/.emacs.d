@@ -4,6 +4,7 @@
 * C++
 
 #+BEGIN_SRC emacs-lisp
+(with-eval-after-load 'c++-mode
   ;; Install {global} at the command line first
   (autoload 'ggtags-mode "ggtags" "" t)
   (add-hook 'c++-mode-hook 
@@ -37,6 +38,6 @@
 
   (add-hook 'c++-mode-hook 
           (lambda () (define-key c++-mode-map (kbd "C-c C-l") 'compile)))
-
+)
 #+END_SRC
 

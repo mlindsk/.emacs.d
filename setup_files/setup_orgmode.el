@@ -1,5 +1,5 @@
 ;; [[file:~/.emacs.d/setup_files/setup_orgmode.org::*Orgmode][Orgmode:1]]
-(with-eval-after-load 'org
+(with-eval-after-load 'org-mode
     (setq org-todo-keywords
 	  '((sequence "TODO" "IN-PROGRESS" "WAITING" "DONE" "IF-TIME")))
 
