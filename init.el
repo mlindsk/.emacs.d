@@ -35,7 +35,7 @@
 (org-babel-load-file (expand-file-name "~/.emacs.d/setup_files/setup_magit.org"))
 (org-babel-load-file (expand-file-name "~/.emacs.d/setup_files/setup_projectile.org"))
 (org-babel-load-file (expand-file-name "~/.emacs.d/setup_files/setup_yasnippets.org"))
-(org-babel-load-file (expand-file-name "~/.emacs.d/setup_files/setup_orgmode.org"))
+;; (org-babel-load-file (expand-file-name "~/.emacs.d/setup_files/setup_orgmode.org"))
 (org-babel-load-file (expand-file-name "~/.emacs.d/setup_files/setup_auctex.org"))
 (org-babel-load-file (expand-file-name "~/.emacs.d/setup_files/setup_polymode.org"))
 (org-babel-load-file (expand-file-name "~/.emacs.d/setup_files/setup_julia.org"))
