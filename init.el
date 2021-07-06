@@ -27,7 +27,7 @@
 ;; Interface completion and searching.
 ;; (org-babel-load-file (expand-file-name "~/.emacs.d/setup_files/setup_ido.org"))     ;; Emacs buil-in completion interface
 ;; (org-babel-load-file (expand-file-name "~/.emacs.d/setup_files/setup_isearch.org")) ;; Emacs buil-in searching
-(org-babel-load-file (expand-file-name "~/.emacs.d/setup_files/setup_ivy_swiper.org")) ;; A nice alternative
+(org-babel-load-file (expand-file-name "~/.emacs.d/setup_files/setup_ivy_swiper_avy.org")) ;; A nice alternative
 
 (org-babel-load-file (expand-file-name "~/.emacs.d/setup_files/setup_dired.org"))
 (org-babel-load-file (expand-file-name "~/.emacs.d/setup_files/setup_visual_regexp.org"))

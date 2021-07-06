@@ -24,7 +24,7 @@
  '(objed-cursor-color "#99324B")
  '(package-selected-packages
    (quote
-    (counsel solarized-theme dired-rainbow doom-themes dockerfile-mode swiper ido-grid-mode peep-dired diredfl dired-subtree jedi company-jedi subatomic-theme dracula-theme visual-regexp visual-regexp-steroids projectile fireplace expand-region flymake julia-shell company-irony poly-noweb ess zenburn-theme yasnippet-snippets textmate-to-yas spaceline smart-mode-line poly-R pollen-mode hc-zenburn-theme ggtags geiser buffer-move auctex)))
+    (ivy-avy jazz-theme counsel solarized-theme dired-rainbow doom-themes dockerfile-mode swiper ido-grid-mode peep-dired diredfl dired-subtree jedi company-jedi subatomic-theme dracula-theme visual-regexp visual-regexp-steroids projectile fireplace expand-region flymake julia-shell company-irony poly-noweb ess zenburn-theme yasnippet-snippets textmate-to-yas spaceline smart-mode-line poly-R pollen-mode hc-zenburn-theme ggtags geiser buffer-move auctex)))
  '(paradox-github-token t)
  '(pdf-view-midnight-colors (quote ("#DCDCCC" . "#383838")))
  '(rustic-ansi-faces
@@ -56,6 +56,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(ivy-highlight-face ((t (:foreground "#ffa500"))))
  '(org-block ((t (:inherit fixed-pitch))))
  '(org-document-info ((t (:foreground "dark orange"))))
  '(org-document-info-keyword ((t (:inherit (shadow fixed-pitch)))))

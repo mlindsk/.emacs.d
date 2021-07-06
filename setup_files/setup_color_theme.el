@@ -8,13 +8,10 @@
 ;; Theme:1 ends here
 
 ;; [[file:~/.emacs.d/setup_files/setup_color_theme.org::*Theme][Theme:2]]
-;; (setq mads/themes '(dracula zenburn doom-nord-light doom-solarized-dark doom-solarized-light))
 (setq mads/themes '(
 zenburn  
-;; apropospriate-light  
 doom-nord-light
 doom-solarized-light
-;; apropospriate-dark
 doom-zenburn
 ))
 
