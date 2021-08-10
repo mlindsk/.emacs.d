@@ -41,6 +41,7 @@
 (org-babel-load-file (expand-file-name "~/.emacs.d/setup_files/setup_julia.org"))
 (org-babel-load-file (expand-file-name "~/.emacs.d/setup_files/setup_company.org"))
 (org-babel-load-file (expand-file-name "~/.emacs.d/setup_files/setup_cpp.org"))
+(org-babel-load-file (expand-file-name "~/.emacs.d/setup_files/setup_python.org"))
 (org-babel-load-file (expand-file-name "~/.emacs.d/setup_files/setup_r.org"))
 ;; (org-babel-load-file (expand-file-name "~/.emacs.d/setup_files/setup_xterm.org"))
 (org-babel-load-file (expand-file-name "~/.emacs.d/setup_files/setup_end_of_init.org"))

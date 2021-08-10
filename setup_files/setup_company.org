@@ -11,5 +11,6 @@
 
   ;; Tab complete arguments inside functions (ESS)
   (global-set-key (kbd "<backtab>") 'company-complete-common)
+
 #+END_SRC
 

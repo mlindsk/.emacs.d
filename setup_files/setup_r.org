@@ -29,7 +29,7 @@
     (add-hook 'ess-r-mode-hook (lambda () (highlight-todos)))
 
     (require 'whitespace)
-    (setq whitespace-line-column 80)
+    (setq whitespace-line-column 90)
     (setq whitespace-style '(face lines-tail))
     (add-hook 'ess-r-mode-hook 'whitespace-mode)
 
@@ -43,6 +43,9 @@
   ;; Terminate session with C-c C-q and dont ask me to save. And dont write .Rhistory!			
   (setq inferior-R-args "--no-restore-history --no-save")
   (setq ess-history-file nil)
+
+  ;; Flymake /(syntax checking)
+  (setq ess-use-flymake nil)
 
   (setq 
     ess-default-style 'RStudio-

@@ -4,3 +4,6 @@ transient
 projectile-bookmarks.eld
 session.*
 url
+ac-comphist.dat
+.mc-lists.el
+.python-environments

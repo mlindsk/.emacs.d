@@ -1,8 +1,15 @@
 ;; [[file:~/.emacs.d/setup_files/setup_color_theme.org::*Theme][Theme:1]]
 ;; Color Theme - https://github.com/bbatsov/zenburn-emacs
+
+;; Old colors (Good for ESS)
+;;  (setq zenburn-override-colors-alist
+;;  '(("zenburn-yellow" . "#8FD878")
+;;  ("zenburn-cyan"     . "#F0D278")))
+
+
 (setq zenburn-override-colors-alist
-'(("zenburn-yellow" . "#8FD878")
-("zenburn-cyan"     . "#F0D278")))
+'(("zenburn-yellow" . "#DEC787")
+("zenburn-cyan"     . "#70BFC2")))
 
 (load-theme 'zenburn t)
 ;; Theme:1 ends here
