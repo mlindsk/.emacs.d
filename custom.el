@@ -24,7 +24,7 @@
  '(objed-cursor-color "#99324B")
  '(package-selected-packages
    (quote
-    (eldoc isend-mode python-x ivy-avy jazz-theme counsel solarized-theme dired-rainbow doom-themes dockerfile-mode swiper ido-grid-mode peep-dired diredfl dired-subtree jedi company-jedi subatomic-theme dracula-theme visual-regexp visual-regexp-steroids projectile fireplace expand-region flymake julia-shell company-irony poly-noweb ess zenburn-theme yasnippet-snippets textmate-to-yas spaceline smart-mode-line poly-R pollen-mode hc-zenburn-theme ggtags geiser buffer-move auctex)))
+    (csharp-mode lsp-mode eldoc isend-mode python-x ivy-avy jazz-theme counsel solarized-theme dired-rainbow doom-themes dockerfile-mode swiper ido-grid-mode peep-dired diredfl dired-subtree jedi company-jedi subatomic-theme dracula-theme visual-regexp visual-regexp-steroids projectile fireplace expand-region flymake julia-shell company-irony poly-noweb ess zenburn-theme yasnippet-snippets textmate-to-yas spaceline smart-mode-line poly-R pollen-mode hc-zenburn-theme ggtags geiser buffer-move auctex)))
  '(paradox-github-token t)
  '(pdf-view-midnight-colors (quote ("#DCDCCC" . "#383838")))
  '(rustic-ansi-faces
