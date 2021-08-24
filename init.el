@@ -27,7 +27,7 @@
 (org-babel-load-file (expand-file-name "~/.emacs.d/setup_files/setup_dired.org"))
 (org-babel-load-file (expand-file-name "~/.emacs.d/setup_files/setup_visual_regexp.org"))
 (org-babel-load-file (expand-file-name "~/.emacs.d/setup_files/setup_expand_region.org"))
-;; (org-babel-load-file (expand-file-name "~/.emacs.d/setup_files/setup_orgmode.org"))
+(org-babel-load-file (expand-file-name "~/.emacs.d/setup_files/setup_orgmode.org"))
 
 ;; Interface completion and searching
 ;; -----------------------------------
@@ -44,10 +44,10 @@
 
 ;; Prog-langs
 ;; ----------
+;; (org-babel-load-file (expand-file-name "~/.emacs.d/setup_files/setup_csharp.org"))
+;; (org-babel-load-file (expand-file-name "~/.emacs.d/setup_files/setup_julia.org"))
 (org-babel-load-file (expand-file-name "~/.emacs.d/setup_files/setup_auctex.org"))
-(org-babel-load-file (expand-file-name "~/.emacs.d/setup_files/setup_csharp.org"))
 (org-babel-load-file (expand-file-name "~/.emacs.d/setup_files/setup_cpp.org"))
-(org-babel-load-file (expand-file-name "~/.emacs.d/setup_files/setup_julia.org"))
 (org-babel-load-file (expand-file-name "~/.emacs.d/setup_files/setup_python.org"))
 (org-babel-load-file (expand-file-name "~/.emacs.d/setup_files/setup_r.org"))
 (org-babel-load-file (expand-file-name "~/.emacs.d/setup_files/setup_polymode.org"))
