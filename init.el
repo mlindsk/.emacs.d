@@ -44,15 +44,17 @@
 
 ;; Prog-langs
 ;; ----------
+;; (org-babel-load-file (expand-file-name "~/.emacs.d/setup_files/setup_xterm.org"))
 ;; (org-babel-load-file (expand-file-name "~/.emacs.d/setup_files/setup_csharp.org"))
 ;; (org-babel-load-file (expand-file-name "~/.emacs.d/setup_files/setup_julia.org"))
 (org-babel-load-file (expand-file-name "~/.emacs.d/setup_files/setup_auctex.org"))
 (org-babel-load-file (expand-file-name "~/.emacs.d/setup_files/setup_cpp.org"))
 (org-babel-load-file (expand-file-name "~/.emacs.d/setup_files/setup_python.org"))
-(org-babel-load-file (expand-file-name "~/.emacs.d/setup_files/setup_r.org"))
 (org-babel-load-file (expand-file-name "~/.emacs.d/setup_files/setup_polymode.org"))
+(org-babel-load-file (expand-file-name "~/.emacs.d/setup_files/setup_r.org"))
 
-;; (org-babel-load-file (expand-file-name "~/.emacs.d/setup_files/setup_xterm.org"))
+;; Custom variables and modeline
+;; -----------------------------
 (org-babel-load-file (expand-file-name "~/.emacs.d/setup_files/setup_end_of_init.org"))
 
 (put 'narrow-to-region 'disabled nil)
