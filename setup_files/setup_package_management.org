@@ -1,12 +1,4 @@
 #+STARTUP: overview 
 #+PROPERTY: header-args :comments yes :results silent
 
-* Package Management
-#+BEGIN_SRC emacs-lisp
- (with-eval-after-load "paradox"
-   (require 'paradox)
-   (paradox-enable)
-   ;; M-x paradox-list-packages
- )
-#+END_SRC
 

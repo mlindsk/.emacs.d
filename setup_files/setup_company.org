@@ -1,16 +1,4 @@
 #+STARTUP: overview 
 #+PROPERTY: header-args :comments yes :results silent
 
-* Company
-#+BEGIN_SRC emacs-lisp
-  ;; https://stackoverflow.com/questions/49232454/emacs-ess-how-to-auto-complete-library-function
-  ;; Auto-completion - install "company"
-  ;; http://company-mode.github.io/
-  (require 'company)
-  (add-hook 'after-init-hook 'global-company-mode)
-
-  ;; Tab complete arguments inside functions (ESS)
-  (global-set-key (kbd "<backtab>") 'company-complete-common)
-
-#+END_SRC
 

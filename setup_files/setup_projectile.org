@@ -1,9 +1,4 @@
 #+STARTUP: overview 
 #+PROPERTY: header-args :comments yes :results silent
 
-* Projectile
-#+BEGIN_SRC emacs-lisp
-(projectile-mode +1)
-(define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
-#+END_SRC
 

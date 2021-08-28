@@ -1,24 +1,4 @@
 #+STARTUP: overview 
 #+PROPERTY: header-args :comments yes :results silent
 
-* End of init
 
-#+BEGIN_SRC emacs-lisp
-  ;; Custom settings (e.g manually set in option pane)
-  (setq custom-file "~/.emacs.d/custom.el")
-  (load custom-file)
-
-  ;; https://github.com/Malabarba/smart-mode-line
-  ;; Keep these at the end of init!
-  (setq sml/no-confirm-load-theme t)
-  (setq sml/theme 'dark)
-  ;; (setq sml/setup)
-  (sml/setup)
-
-  ;; Open my notes at startup
-  ;; (find-file "/home/mads/Documents/notes/README.org")
-  ;; (setq initial-buffer-choice "README.org")
-  ;; (kill-buffer "*scratch*")
-
-  (setq inhibit-startup-screen t)
-#+END_SRC

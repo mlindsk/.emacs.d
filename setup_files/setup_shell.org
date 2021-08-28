@@ -1,14 +1,3 @@
 #+STARTUP: overview 
 #+PROPERTY: header-args :comments yes :results silent
 
-* Shell
-
-#+BEGIN_SRC emacs-lisp
-(global-set-key (kbd "C-c q")   (lambda () (interactive) (shell-command "gnome-terminal")))
-(global-set-key (kbd "C-c C-q") (lambda () (interactive) (shell-command "nautilus . &")))
-#+END_SRC
-
-* Eshell
-#+BEGIN_SRC emacs-lisp
-;; https://www.masteringemacs.org/article/complete-guide-mastering-eshell
-#+END_SRC emacs-lisp
