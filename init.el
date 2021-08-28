@@ -27,7 +27,7 @@
 (org-babel-load-file (expand-file-name "~/.emacs.d/setup_files/setup_dired.org"))
 (org-babel-load-file (expand-file-name "~/.emacs.d/setup_files/setup_visual_regexp.org"))
 (org-babel-load-file (expand-file-name "~/.emacs.d/setup_files/setup_expand_region.org"))
-(org-babel-load-file (expand-file-name "~/.emacs.d/setup_files/setup_orgmode.org"))
+;; (org-babel-load-file (expand-file-name "~/.emacs.d/setup_files/setup_orgmode.org"))
 
 ;; Interface completion and searching
 ;; -----------------------------------

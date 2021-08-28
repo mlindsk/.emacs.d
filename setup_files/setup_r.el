@@ -1,4 +1,4 @@
-;; [[file:~/.emacs.d/setup_files/setup_r.org::*R][R:1]]
+;; [[file:setup_r.org::*R][R:1]]
 (with-eval-after-load 'ess
 
   (require 'ess-r-mode)
@@ -52,7 +52,7 @@
   ess-toggle-underscore nil     ; stop the (not so) smart underscore
   ess-eval-empty t              ; don't skip non-code lines.
   ess-ask-for-ess-directory nil ; start R in the current working directory by default
-  ;; ess-r-package-auto-set-evaluation-env nil ; C-c C-t C-s
+  ess-r-package-auto-set-evaluation-env nil ; C-c C-t C-s
   )
   ;; http://permalink.gmane.org/gmane.emacs.ess.general/8419
   ;; Script font lock highlight.
