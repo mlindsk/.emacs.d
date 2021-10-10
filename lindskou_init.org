@@ -2,12 +2,13 @@
 
  Some useful commands that I tend to forget
 
-| Command  | Description                                    |
-|----------+------------------------------------------------|
-| C-c ;    | comment an org section                         |
-| C-x spc  | mark in rectangle mode                         |
-| C-S bspc | Remember that this copies the entire line also |
-|          |                                                |
+| Command  | Description                                           |
+|----------+-------------------------------------------------------|
+| C-c ;    | comment an org section                                |
+| C-x spc  | mark in rectangle mode                                |
+| C-S bspc | Remember that this copies the entire line also        |
+| W        | In dired mode - opens file with default program of OS |
+|          |                                                       |
 
 
 * Package Management
@@ -20,46 +21,54 @@
  )
 #+END_SRC
 
+
+
 * Color Theme
 
   #+BEGIN_SRC emacs-lisp
-  ;; Color Theme - https://github.com/bbatsov/zenburn-emacs
 
-  ;; Old colors (Good for ESS)
-  ;;  (setq zenburn-override-colors-alist
-  ;;  '(("zenburn-yellow" . "#8FD878")
-  ;;  ("zenburn-cyan"     . "#F0D278")))
+    ;; Color Theme - https://github.com/bbatsov/zenburn-emacs
 
+    ;; Old colors (Good for ESS)
+    ;;  (setq zenburn-override-colors-alist
+    ;;  '(("zenburn-yellow" . "#8FD878")
+    ;;  ("zenburn-cyan"     . "#F0D278")))
 
-  (setq zenburn-override-colors-alist
-  '(("zenburn-yellow" . "#DEC787")
-  ("zenburn-cyan"     . "#70BFC2")))
+    (setq zenburn-override-colors-alist
+    '(
+      ("zenburn-yellow" . "#DEC787")
+      ("zenburn-cyan"   . "#70BFC2")
+      ("zenburn-fg"     . "#f2f0f0") ;; A little brighter text in general
+      ("zenburn-bg+3"     . "#b33939")
+    ))
 
-  (load-theme 'zenburn t)
+    (require 'kaolin-themes)
+    (load-theme 'zenburn t)
 
-  (setq mads/themes '(
-  zenburn  
-  doom-nord-light
-  doom-solarized-light
-  doom-zenburn
-  ))
+    (setq mads/themes '(
+    zenburn
+    kaolin-valley-light
+    doom-nord-light
+    doom-solarized-light
+    doom-zenburn
+    ))
 
-  (setq mads/themes-index 0)
+    (setq mads/themes-index 0)
 
-  (defun mads/cycle-theme ()
-    (interactive)
-    (setq mads/themes-index (% (1+ mads/themes-index) (length mads/themes)))
-    (mads/load-indexed-theme))
+    (defun mads/cycle-theme ()
+      (interactive)
+      (setq mads/themes-index (% (1+ mads/themes-index) (length mads/themes)))
+      (mads/load-indexed-theme))
 
-  (defun mads/load-indexed-theme ()
-    (mads/try-load-theme (nth mads/themes-index mads/themes)))
+    (defun mads/load-indexed-theme ()
+      (mads/try-load-theme (nth mads/themes-index mads/themes)))
 
-  (defun mads/try-load-theme (theme)
-    (if (ignore-errors (load-theme theme :no-confirm))
-	(mapcar #'disable-theme (remove theme custom-enabled-themes))
-      (message "Unable to find theme file for ‘%s’" theme)))
+    (defun mads/try-load-theme (theme)
+      (if (ignore-errors (load-theme theme :no-confirm))
+	  (mapcar #'disable-theme (remove theme custom-enabled-themes))
+	(message "Unable to find theme file for ‘%s’" theme)))
 
-  (global-set-key [f5] 'mads/cycle-theme)
+    (global-set-key [f5] 'mads/cycle-theme)
 #+END_SRC
 
 * Global Settings
@@ -90,16 +99,12 @@
    ;; https://www.dcalacci.net/2018/remote-ess/
    ;; https://www.r-bloggers.com/run-a-remote-r-session-in-emacs-emacs-ess-r-ssh/
 
-   ;; Stop using emacs internal viewer
-   (require 'openwith)
-   (openwith-mode t)
-   (setq openwith-associations '(("\\.pdf\\'" "evince" (file))))
-
    ;; https://emacs.stackexchange.com/questions/5553/
    ;; async-shell-process-buffer-always-clobbers-window-arrangement
    ;; (Calling external programs with M-! makes a lot of unwanted results) 
    (add-to-list 'display-buffer-alist (cons "\\*Async Shell Command\\*.*" (cons #'display-buffer-no-window nil)))
 
+   (global-set-key (kbd "C-c h") 'helm-show-kill-ring)
    (global-set-key (kbd "C-x k") 'kill-this-buffer) ;; Kill this buffer - instead of selecting.
    (fset 'yes-or-no-p 'y-or-n-p)                    ;; Avoid typing yes and no
    (set-cursor-color "#ffffff") 
@@ -173,21 +178,26 @@
 * Treemacs and all the icons
 
 #+BEGIN_SRC emacs-lisp
-  (require 'treemacs)
-  (global-set-key (kbd "C-t") 'treemacs-display-current-project-exclusively)
-
-  ;; Requires all-the-icons and then M-x all-the-icons-istall-fonts
-  (load "~/.emacs.d/elpa/all-the-icons-dired-20210614.1350/all-the-icons-dired.el")
-  (add-hook 'dired-mode-hook 'all-the-icons-dired-mode)
+(require 'dired-sidebar)
+#+END_SRC
+  
+#+BEGIN_SRC emacs-lisp
+;;  (require 'treemacs)
+;;  (global-set-key (kbd "C-t") 'treemacs-display-current-project-exclusively)
+;;  (setq treemacs-width 25)
+;;
+;;  ;; Requires all-the-icons and then M-x all-the-icons-istall-fonts
+;;  (load "~/.emacs.d/elpa/all-the-icons-dired-20210614.1350/all-the-icons-dired.el")
+;;  (add-hook 'dired-mode-hook 'all-the-icons-dired-mode)
 #+END_SRC
 
 * Telephoneline
 #+BEGIN_SRC emacs-lisp
   (require 'telephone-line)
-  (setq telephone-line-primary-left-separator 'telephone-line-cubed-left
-      telephone-line-secondary-left-separator 'telephone-line-cubed-hollow-left
-      telephone-line-primary-right-separator 'telephone-line-cubed-right
-      telephone-line-secondary-right-separator 'telephone-line-cubed-hollow-right)
+  (setq telephone-line-primary-left-separator 'telephone-line-abs-left
+      telephone-line-secondary-left-separator 'telephone-line-abs-hollow-left
+      telephone-line-primary-right-separator 'telephone-line-abs-right
+      telephone-line-secondary-right-separator 'telephone-line-abs-hollow-right)
   (setq telephone-line-height 24
       telephone-line-evil-use-short-tag t)
 
@@ -490,7 +500,7 @@
 
 #+END_SRC
 
-* COMMENT Isearch
+* Isearch
 #+BEGIN_SRC emacs-lisp
  ;; (setq lazy-highlight-cleanup nil) ;;  after C-s the words are still highlighted
  (setq search-highlight t)
@@ -525,14 +535,15 @@
 #+END_SRC
 
 * Ivy, Swiper and Avy
-
+  
 #+BEGIN_SRC emacs-lisp
   (ivy-mode 1)
   (setq ivy-count-format ""
-        ivy-height 3
+	ivy-height 5
 	ivy-display-style nil
 	ivy-minibuffer-faces nil)
-  (global-set-key (kbd "C-s") 'swiper-isearch)
+
+  ;; (global-set-key (kbd "C-S") 'swiper-isearch)
 
   (add-hook 'org-mode-hook
     (lambda ()
@@ -652,6 +663,10 @@
   ;; Turn on RefTeX
   (add-hook 'LaTeX-mode-hook 'turn-on-reftex)
   (setq reftex-plug-into-auctex t)
+
+  ;; Spell-checking
+  (add-hook 'LaTeX-mode-hook 'flyspell-mode)
+
 
   ;; Turn on math mode - prefix with "`"
   (add-hook 'LaTeX-mode-hook 'LaTeX-math-mode)
@@ -784,6 +799,8 @@
 * Polymode
 #+BEGIN_SRC emacs-lisp
 (with-eval-after-load 'poly-markdown+r-mode
+  (require 'openwith) ;; required to open pdf in external viewer
+  (openwith-mode t)
 
   (require 'poly-R)
   (add-to-list 'auto-mode-alist '("\\.md" . poly-markdown-mode))
@@ -816,6 +833,10 @@
     (add-hook 'ess-r-mode-hook (lambda () (local-set-key (kbd "C-;") "<-")))
     (add-hook 'inferior-ess-r-mode-hook (lambda () (local-set-key (kbd "C-;") "<-")))
 
+
+    (add-hook 'ess-r-mode-hook (lambda () (local-set-key (kbd "C-c k") 'ess-quit)))
+    (add-hook 'ess-r-mode-hook (lambda () (local-set-key (kbd "C-c l") 'ess-r-devtools-load-package)))
+
     ;; Pipe operator
     (add-hook 'ess-r-mode-hook (lambda () (local-set-key (kbd "C-%") "%>%"))) 
     (add-hook 'inferior-ess-r-mode-hook (lambda () (local-set-key (kbd "C-%") "%>%")))
@@ -841,11 +862,13 @@
     ;; Stop using double hashtags for commmenting
     (add-hook 'ess-r-mode-hook
       (lambda () (progn (setq comment-start "# ")
-                        (setq comment-add 0))))
+			(setq comment-add 0))))
 
   ;; Terminate session with C-c C-q and dont ask me to save. And dont write .Rhistory!			
   (setq inferior-R-args "--no-restore-history --no-save")
   (setq ess-history-file nil)
+
+
 
   ;; Flymake /(syntax checking)
   (setq ess-use-flymake nil)

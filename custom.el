@@ -21,7 +21,7 @@
    '("#CC9393" "#DFAF8F" "#F0DFAF" "#7F9F7F" "#BFEBBF" "#93E0E3" "#94BFF3" "#DC8CC3"))
  '(objed-cursor-color "#99324B")
  '(package-selected-packages
-   '(telephone-line treemacs all-the-icons-ivy all-the-icons-dired all-the-icons neotree csharp-mode lsp-mode eldoc isend-mode python-x ivy-avy jazz-theme counsel solarized-theme dired-rainbow doom-themes dockerfile-mode swiper ido-grid-mode peep-dired diredfl dired-subtree jedi company-jedi subatomic-theme dracula-theme visual-regexp visual-regexp-steroids projectile fireplace expand-region flymake julia-shell company-irony poly-noweb ess zenburn-theme yasnippet-snippets textmate-to-yas spaceline smart-mode-line poly-R pollen-mode hc-zenburn-theme ggtags geiser buffer-move auctex))
+   '(kaolin-themes scala-mode dired-sidebar telephone-line treemacs all-the-icons-ivy all-the-icons-dired all-the-icons neotree csharp-mode lsp-mode eldoc isend-mode python-x ivy-avy jazz-theme counsel solarized-theme dired-rainbow doom-themes dockerfile-mode swiper ido-grid-mode peep-dired diredfl dired-subtree jedi company-jedi subatomic-theme dracula-theme visual-regexp visual-regexp-steroids projectile fireplace expand-region flymake julia-shell company-irony poly-noweb ess zenburn-theme yasnippet-snippets textmate-to-yas spaceline smart-mode-line poly-R pollen-mode hc-zenburn-theme ggtags geiser buffer-move auctex))
  '(paradox-github-token t)
  '(pdf-view-midnight-colors '("#DCDCCC" . "#383838"))
  '(rustic-ansi-faces

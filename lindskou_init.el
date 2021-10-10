@@ -11,15 +11,20 @@
 ;;  '(("zenburn-yellow" . "#8FD878")
 ;;  ("zenburn-cyan"     . "#F0D278")))
 
-
 (setq zenburn-override-colors-alist
-'(("zenburn-yellow" . "#DEC787")
-("zenburn-cyan"     . "#70BFC2")))
+'(
+  ("zenburn-yellow" . "#DEC787")
+  ("zenburn-cyan"   . "#70BFC2")
+  ("zenburn-fg"     . "#f2f0f0") ;; A little brighter text in general
+  ("zenburn-bg+3"     . "#b33939")
+))
 
+(require 'kaolin-themes)
 (load-theme 'zenburn t)
 
 (setq mads/themes '(
-zenburn  
+zenburn
+kaolin-valley-light
 doom-nord-light
 doom-solarized-light
 doom-zenburn
@@ -61,23 +66,19 @@ doom-zenburn
 
  ;; Remove scroll bare and the grey area around it
  (scroll-bar-mode 0)
- (set-fringe-mode 1)
+ (set-fringe-mode 5)
 
  ;; Remote stuff
  (setq tramp-default-method "ssh")
  ;; https://www.dcalacci.net/2018/remote-ess/
  ;; https://www.r-bloggers.com/run-a-remote-r-session-in-emacs-emacs-ess-r-ssh/
 
- ;; Stop using emacs internal viewer
- (require 'openwith)
- (openwith-mode t)
- (setq openwith-associations '(("\\.pdf\\'" "evince" (file))))
-
  ;; https://emacs.stackexchange.com/questions/5553/
  ;; async-shell-process-buffer-always-clobbers-window-arrangement
  ;; (Calling external programs with M-! makes a lot of unwanted results) 
  (add-to-list 'display-buffer-alist (cons "\\*Async Shell Command\\*.*" (cons #'display-buffer-no-window nil)))
 
+ (global-set-key (kbd "C-c h") 'helm-show-kill-ring)
  (global-set-key (kbd "C-x k") 'kill-this-buffer) ;; Kill this buffer - instead of selecting.
  (fset 'yes-or-no-p 'y-or-n-p)                    ;; Avoid typing yes and no
  (set-cursor-color "#ffffff") 
@@ -140,18 +141,21 @@ doom-zenburn
 (global-set-key (kbd "C-c m e") 'mc/edit-ends-of-lines)
 (define-key mc/keymap (kbd "<return>") nil)
 
-(require 'treemacs)
-(global-set-key (kbd "C-t") 'treemacs-display-current-project-exclusively)
+(require 'dired-sidebar)
 
-;; Requires all-the-icons and then M-x all-the-icons-istall-fonts
-(load "~/.emacs.d/elpa/all-the-icons-dired-20210614.1350/all-the-icons-dired.el")
-(add-hook 'dired-mode-hook 'all-the-icons-dired-mode)
+;;  (require 'treemacs)
+;;  (global-set-key (kbd "C-t") 'treemacs-display-current-project-exclusively)
+;;  (setq treemacs-width 25)
+;;
+;;  ;; Requires all-the-icons and then M-x all-the-icons-istall-fonts
+;;  (load "~/.emacs.d/elpa/all-the-icons-dired-20210614.1350/all-the-icons-dired.el")
+;;  (add-hook 'dired-mode-hook 'all-the-icons-dired-mode)
 
 (require 'telephone-line)
-(setq telephone-line-primary-left-separator 'telephone-line-cubed-left
-    telephone-line-secondary-left-separator 'telephone-line-cubed-hollow-left
-    telephone-line-primary-right-separator 'telephone-line-cubed-right
-    telephone-line-secondary-right-separator 'telephone-line-cubed-hollow-right)
+(setq telephone-line-primary-left-separator 'telephone-line-abs-left
+    telephone-line-secondary-left-separator 'telephone-line-abs-hollow-left
+    telephone-line-primary-right-separator 'telephone-line-abs-right
+    telephone-line-secondary-right-separator 'telephone-line-abs-hollow-right)
 (setq telephone-line-height 24
     telephone-line-evil-use-short-tag t)
 
@@ -391,12 +395,44 @@ doom-zenburn
 
   ) ;; end with-eval-after-load
 
+;; (setq lazy-highlight-cleanup nil) ;;  after C-s the words are still highlighted
+ (setq search-highlight t)
+ (setq isearch-lazy-highlight t)
+ ;; (setq search-whitespace-regexp ".*?")
+
+ ;; Lets be honest; no one can have pinky on CTRL while index finger on r!
+ ;; (global-set-key (kbd "C-f") 'isearch-backward)
+ ;; (define-key isearch-mode-map "\C-f" 'isearch-repeat-backward)
+
+ ;; From 5.27 How do I show which parenthesis matches the one I'm looking at?
+ (defun match-paren (arg)
+   "Go to the matching paren if on a paren; otherwise insert %."
+   (interactive "p")
+   (cond ((looking-at "\\s(") (forward-list 1) (backward-char 1))
+	 ((looking-at "\\s)") (forward-char 1) (backward-list 1))
+	 (t (self-insert-command (or arg 1)))))
+;; https://emacs.stackexchange.com/questions/52549/get-emacs-to-jump-to-the-start-of-a-word-after-isearch
+(define-key isearch-mode-map (kbd "<C-return>")
+  (defun isearch-done-opposite (&optional nopush edit)
+    "End current search in the opposite side of the match."
+    (interactive)
+    (funcall #'isearch-done nopush edit)
+    (when isearch-other-end (goto-char isearch-other-end))))
+
+;; All of the following variables were introduced in Emacs 27.1.
+;; (setq isearch-lazy-count t)
+;; (setq lazy-count-prefix-format "(%s/%s) ")
+;; (setq lazy-count-suffix-format nil)
+;; (setq isearch-yank-on-move 'shift)
+;; (setq isearch-allow-scroll 'unlimited)
+
 (ivy-mode 1)
 (setq ivy-count-format ""
-      ivy-height 3
+      ivy-height 5
       ivy-display-style nil
       ivy-minibuffer-faces nil)
-(global-set-key (kbd "C-s") 'swiper-isearch)
+
+;; (global-set-key (kbd "C-S") 'swiper-isearch)
 
 (add-hook 'org-mode-hook
   (lambda ()
@@ -482,6 +518,10 @@ doom-zenburn
   ;; Turn on RefTeX
   (add-hook 'LaTeX-mode-hook 'turn-on-reftex)
   (setq reftex-plug-into-auctex t)
+
+  ;; Spell-checking
+  (add-hook 'LaTeX-mode-hook 'flyspell-mode)
+
 
   ;; Turn on math mode - prefix with "`"
   (add-hook 'LaTeX-mode-hook 'LaTeX-math-mode)
@@ -604,6 +644,8 @@ doom-zenburn
   ("\\([][{}()~^<>:=,.\\+*/%-]\\)" 0 'widget-inactive-face)))
 
 (with-eval-after-load 'poly-markdown+r-mode
+  (require 'openwith) ;; required to open pdf in external viewer
+  (openwith-mode t)
 
   (require 'poly-R)
   (add-to-list 'auto-mode-alist '("\\.md" . poly-markdown-mode))
@@ -633,6 +675,10 @@ doom-zenburn
   (add-hook 'ess-r-mode-hook (lambda () (local-set-key (kbd "C-;") "<-")))
   (add-hook 'inferior-ess-r-mode-hook (lambda () (local-set-key (kbd "C-;") "<-")))
 
+
+  (add-hook 'ess-r-mode-hook (lambda () (local-set-key (kbd "C-c k") 'ess-quit)))
+  (add-hook 'ess-r-mode-hook (lambda () (local-set-key (kbd "C-c l") 'ess-r-devtools-load-package)))
+
   ;; Pipe operator
   (add-hook 'ess-r-mode-hook (lambda () (local-set-key (kbd "C-%") "%>%"))) 
   (add-hook 'inferior-ess-r-mode-hook (lambda () (local-set-key (kbd "C-%") "%>%")))
@@ -658,11 +704,13 @@ doom-zenburn
   ;; Stop using double hashtags for commmenting
   (add-hook 'ess-r-mode-hook
     (lambda () (progn (setq comment-start "# ")
-                      (setq comment-add 0))))
+		      (setq comment-add 0))))
 
 ;; Terminate session with C-c C-q and dont ask me to save. And dont write .Rhistory!			
 (setq inferior-R-args "--no-restore-history --no-save")
 (setq ess-history-file nil)
+
+
 
 ;; Flymake /(syntax checking)
 (setq ess-use-flymake nil)

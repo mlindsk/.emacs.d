@@ -50,8 +50,7 @@
   :group 'processes)
 
 (defcustom openwith-associations
-  '(("\\.pdf\\'" "acroread" (file))
-    ("\\.mp3\\'" "xmms" (file))
+  '(("\\.pdf\\'" "evince" (file))
     ("\\.\\(?:mpe?g\\|avi\\|wmv\\)\\'" "mplayer" ("-idx" file))
     ("\\.\\(?:jp?g\\|png\\)\\'" "display" (file)))
   "Associations of file patterns to external programs.
