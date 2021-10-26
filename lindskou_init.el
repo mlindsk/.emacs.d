@@ -616,7 +616,8 @@ doom-zenburn
  ;; https://emacs-lsp.github.io/lsp-mode/tutorials/how-to-turn-off/
  ;; https://emacs-lsp.github.io/lsp-ui/
 
- ;; 
+ ;; M-./M-; is bound to xref-find-definitions as usual for code funtion navigation
+ ;; Show references for objects using M-S-?
 
 (defun my-python-hooks()
      (interactive)
@@ -650,6 +651,9 @@ doom-zenburn
 
 ;; Used for company completion
 (define-key python-mode-map (kbd "<backtab>") nil)
+
+;; Show references for objects using M-S-?
+(define-key python-mode-map [remap xref-find-references] #'lsp-ui-peek-find-references)
 
 ;; R-like REPL evaluation
 (require 'eval-in-repl-python)

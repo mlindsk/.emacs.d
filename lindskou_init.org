@@ -6,8 +6,6 @@
 
 | Command    | Description                                           |
 |------------+-------------------------------------------------------|
-| C-c C-l    | lsp prefix                                            |
-| M-. and M, | xref-find-definitions                                 |
 | C-'        | Avy go to char                                        |
 | C-c ;      | comment an org section                                |
 | C-c h      | Help show kill ring                                   |
@@ -822,6 +820,13 @@
 
 * Python LSP Setup
 
+| Command     | Description                                             |
+|-------------+---------------------------------------------------------|
+| C-c C-l     | lsp prefix                                              |
+| C-c C-l h h | describe thing at point (documentation)                 |
+| M-. and M-, | xref-find-definitions (jumpt to function def. etc.)     |
+| M-S-?       | lsp-ui-peek-find-references (list all objects at point) |
+  
 #+BEGIN_SRC emacs-lisp
 
    ;; https://www.reddit.com/r/emacs/comments/m2fde6/lspmode/gqjy1mt/
@@ -832,6 +837,7 @@
    ;; https://emacs-lsp.github.io/lsp-ui/
 
    ;; M-./M-; is bound to xref-find-definitions as usual for code funtion navigation
+   ;; Show references for objects using M-S-?
 
   (defun my-python-hooks()
        (interactive)
@@ -865,6 +871,9 @@
 
   ;; Used for company completion
   (define-key python-mode-map (kbd "<backtab>") nil)
+
+  ;; Show references for objects using M-S-?
+  (define-key python-mode-map [remap xref-find-references] #'lsp-ui-peek-find-references)
 
   ;; R-like REPL evaluation
   (require 'eval-in-repl-python)
