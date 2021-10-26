@@ -1,9 +1,0 @@
-#+STARTUP: overview 
-#+PROPERTY: header-args :comments yes :results silent
-
-
-#+BEGIN_SRC emacs-lisp
-
-
-#+END_SRC
-

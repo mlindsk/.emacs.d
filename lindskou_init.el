@@ -15,8 +15,8 @@
 '(
   ("zenburn-yellow" . "#DEC787")
   ("zenburn-cyan"   . "#70BFC2")
-  ("zenburn-fg"     . "#f2f0f0") ;; A little brighter text in general
-  ("zenburn-bg+3"     . "#b33939")
+  ;; ("zenburn-fg"     . "#f2f0f0") ;; A little brighter text in general
+  ;;("zenburn-bg+3"     . "#b33939")
 ))
 
 (require 'kaolin-themes)
@@ -136,12 +136,13 @@ doom-zenburn
 (global-set-key (kbd "C-c m a") 'mc/mark-all-like-this)
 (global-set-key (kbd "C-c m w") 'mc/mark-all-words-like-this)
 (global-set-key (kbd "C-c m s") 'mc/mark-all-symbols-like-this)
+(global-set-key (kbd "C-c m n") 'mc/mark-next-like-this)
 (global-set-key (kbd "C-c m m") 'mc/mark-more-like-this-extended)
 (global-set-key (kbd "C-c m p") 'mc/mark-pop)
 (global-set-key (kbd "C-c m e") 'mc/edit-ends-of-lines)
 (define-key mc/keymap (kbd "<return>") nil)
 
-(require 'dired-sidebar)
+;; (require 'dired-sidebar)
 
 ;;  (require 'treemacs)
 ;;  (global-set-key (kbd "C-t") 'treemacs-display-current-project-exclusively)
@@ -303,8 +304,6 @@ doom-zenburn
 (global-set-key (kbd "C-)") 'er/mark-outside-pairs)
 
 (with-eval-after-load 'org
-    (setq org-todo-keywords
-	  '((sequence "TODO" "IN-PROGRESS" "WAITING" "DONE" "IF-TIME")))
 
     (require 'ob-shell)
     (require 'ox-md)
@@ -331,14 +330,30 @@ doom-zenburn
     (setq org-cycle-separator-lines 2)
     (setq org-indent-indentation-per-level 0)
 
+
+    (setq org-todo-keywords
+	  '((sequence "TODO" "IN-PROGRESS" "WAITING" "DONE" "IF-TIME")))
+
     ;; Agendas
-    (global-set-key "\C-ca" 'org-agenda)
+    ;; (global-set-key "\C-ca" 'org-agenda)
 
     ;; Default LaTeX export packages
     (setq org-latex-packages-alist '(("margin=2cm" "geometry" nil)))
 
+    ;; Capture
+    (define-key global-map (kbd "C-c c") 'org-capture)
+    (setq org-default-notes-file "/home/mads/Documents/notes/notes.org")
+    (defun my/style-org-agenda()
+      (set-face-attribute 'org-agenda-date nil :height 1.1)
+      (set-face-attribute 'org-agenda-date-today nil :height 1.1 :slant 'italic)
+      (set-face-attribute 'org-agenda-date-weekend nil :height 1.1))
+
+    (add-hook 'org-agenda-mode-hook 'my/style-org-agenda)
+    
+
     ;; Graphviz
     ;; https://stackoverflow.com/questions/16770868/org-babel-doesnt-load-graphviz-editing-mode-for-dot-sources
+
     (add-to-list 'org-src-lang-modes (quote ("dot" . graphviz-dot)))
 
     ;; Inline image settings
@@ -469,6 +484,12 @@ doom-zenburn
   (setq yas-snippet-dirs '("~/.emacs.d/snippets"))
   (yas-global-mode 1)
 ) ;; end with-eval-after-load
+(with-eval-after-load 'python
+  (autoload 'yasnippet "yasnippet" "" t)
+  (require 'yasnippet)
+  (setq yas-snippet-dirs '("~/.emacs.d/snippets"))
+  (yas-global-mode 1)
+) ;; end with-eval-after-load
 
 ;; https://stackoverflow.com/questions/49232454/emacs-ess-how-to-auto-complete-library-function
 ;; Auto-completion - install "company"
@@ -588,60 +609,57 @@ doom-zenburn
           (lambda () (define-key c++-mode-map (kbd "C-c C-l") 'compile)))
 )
 
-;; (with-eval-after-load 'python-mode
+;; https://www.reddit.com/r/emacs/comments/m2fde6/lspmode/gqjy1mt/
+ ;; https://www.mortens.dev/blog/emacs-and-the-language-server-protocol/index.html
+ ;; https://www.mattduck.com/lsp-python-getting-started.html
+ ;; https://github.com/emacs-lsp/lsp-python-ms/issues/26 (LINTING)
+ ;; https://emacs-lsp.github.io/lsp-mode/tutorials/how-to-turn-off/
+ ;; https://emacs-lsp.github.io/lsp-ui/
 
-;; Jedi: code completion framework for python; use it with company-jedi
+ ;; 
 
-;; needs: pip3 install virtualenv
-(setq python-shell-interpreter "python3")
-(add-hook 'python-mode-hook 'jedi:setup)
-(setq jedi:setup-keys t)
-(setq jedi:complete-on-dot t)
-
-;; Isend
-(require 'isend-mode)
-;; (add-hook 'isend-mode-hook 'isend-default-python-setup)
-
-;; Highlight eldoc params
-(defun ted-frob-eldoc-argument-list (string)
-  "Upcase and fontify STRING for use with `eldoc-mode'."
-   (propertize (upcase string)
-             'face 'font-lock-variable-name-face))
-(setq eldoc-argument-case 'ted-frob-eldoc-argument-list)
-
-;; Python mode
 (defun my-python-hooks()
-    (interactive)
-    (setq tab-width     2
-	  python-indent 2
-	  python-shell-interpreter "ipython"
-	  python-shell-interpreter-args "--simple-prompt -i")
-    ;; python mode keybindings
-    (define-key python-mode-map (kbd "M-.") 'jedi:goto-definition)
-    (define-key python-mode-map (kbd "M-,") 'jedi:goto-definition-pop-marker)
-    (define-key python-mode-map (kbd "M-/") 'jedi:show-doc)
-    (define-key python-mode-map (kbd "M-?") 'helm-jedi-related-names)
-    (define-key python-mode-map (kbd "C-c a") 'isend-associate)
-    (define-key python-mode-map [(shift return)] 'isend-send)
-    )
+     (interactive)
+     (setq
+     indent-tabs-mode nil
+     tab-width 4
+     python-indent 4
+     python-shell-interpreter "ipython"
+     python-shell-interpreter-args "--simple-prompt -i"
+     ;; lsp specific
+     lsp-python-ms-auto-install-server t
+     lsp-python-ms-executable (executable-find "python-language-server")
+     lsp-diagnostics-provider :none
+     lsp-headerline-breadcrumb-enable nil
+     lsp-enable-text-document-color t
+     lsp-modeline-diagnostics-enable nil
+     lsp-modeline-code-actions-enable nil
+     lsp-signature-render-documentation nil
+     lsp-enable-file-watchers nil
+     lsp-enable-symbol-highlighting nil
+     lsp-enable-on-type-formatting nil
+     lsp-enable-indentation nil
+     lsp-enable-folding nil
+     lsp-ui-doc-enable nil
+     ;; https://emacs-lsp.github.io/lsp-mode/page/keybindings/
+     lsp-keymap-prefix "C-c C-l"))
 
+(add-hook 'python-mode-hook (lambda () (require 'lsp-python-ms) (lsp)))
+(add-hook 'python-mode-hook (lambda () (require 'lsp-ui) (lsp)))
 (add-hook 'python-mode-hook 'my-python-hooks)
 
+;; Used for company completion
+(define-key python-mode-map (kbd "<backtab>") nil)
+
+;; R-like REPL evaluation
+(require 'eval-in-repl-python)
+(define-key python-mode-map [(shift return)] 'eir-eval-in-python)
 
 (defun clear-repl ()
   (interactive)
   (let ((comint-buffer-maximum-size 0))
     (comint-truncate-buffer)))
-
 (add-hook 'inferior-python-mode-hook (lambda () (local-set-key (kbd "C-c l") 'clear-repl)))
-
-;; Font lock
-(font-lock-add-keywords 'python-mode
-  ;; adds object and str and fixes it so that keywords that often appear with : are assigned as builtin-face
-  '(("\\<\\(object\\|str\\|else\\|except\\|finally\\|try\\|\\)\\>" 0 py-builtins-face)
-  ;; FIXME: negative or positive prefixes do not highlight to this regexp but does to one below
-  ("\\<[\\+-]?[0-9]+\\(.[0-9]+\\)?\\>" 0 'font-lock-constant-face)
-  ("\\([][{}()~^<>:=,.\\+*/%-]\\)" 0 'widget-inactive-face)))
 
 (with-eval-after-load 'poly-markdown+r-mode
   (require 'openwith) ;; required to open pdf in external viewer

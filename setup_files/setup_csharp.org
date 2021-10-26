@@ -1,2 +1,0 @@
-#+PROPERTY: header-args :comments yes :results silent
-

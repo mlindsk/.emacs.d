@@ -1,3 +1,4 @@
+.cache
 eshell
 ido.last
 bookmarks
@@ -9,3 +10,5 @@ ac-comphist.dat
 .cache
 .mc-lists.el
 .python-environments
+.lsp-session-v1
+.org-id-locations
