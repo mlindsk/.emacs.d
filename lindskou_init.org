@@ -209,7 +209,9 @@
   (setq telephone-line-height 24
       telephone-line-evil-use-short-tag t)
 
-  (telephone-line-mode 1)
+  (if (eq system-type 'gnu/linux)
+    (telephone-line-mode 1))
+
 #+END_SRC
 * Spell Checking
 

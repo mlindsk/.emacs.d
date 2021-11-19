@@ -160,7 +160,8 @@ doom-zenburn
 (setq telephone-line-height 24
     telephone-line-evil-use-short-tag t)
 
-(telephone-line-mode 1)
+(if (eq system-type 'gnu/linux)
+  (telephone-line-mode 1))
 
 ;; http://blog.binchen.org/posts/what-s-the-best-spell-check-set-up-in-emacs.html
 ;; find aspell and hunspell automatically
@@ -220,7 +221,7 @@ doom-zenburn
      (global-set-key (kbd "C-c C-q") (lambda () (interactive) (shell-command "nautilus . &"))))
 
  (if (eq system-type 'windows-nt)
-     (global-set-key (kbd "C-c q")   (lambda () (interactive) (shell-command "start \"\" \"C:\\Program Files\\Git\\git-bash.exe\"")))
+     (global-set-key (kbd "C-c q")   (lambda () (interactive) (shell-command "start \"\" \"C:\\Program Files\\Git\\git-bash.exe\" &")))
      (global-set-key (kbd "C-c q")   (lambda () (interactive) (shell-command "gnome-terminal"))))
 
  ;; Eshell
