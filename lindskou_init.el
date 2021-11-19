@@ -210,11 +210,21 @@ doom-zenburn
 (add-hook 'org-shiftdown-final-hook 'windmove-down)
 (add-hook 'org-shiftright-final-hook 'windmove-right)
 
-(global-set-key (kbd "C-c q")   (lambda () (interactive) (shell-command "gnome-terminal")))
-(global-set-key (kbd "C-c C-q") (lambda () (interactive) (shell-command "nautilus . &")))
+(if (eq system-type 'windows-nt)
+    ;; https://colhountech.com/2016/07/12/how-to-install-ubuntu-fonts-on-windows-10/
+     (add-to-list 'default-frame-alist '(font . "Ubuntu Mono-16.0"))    
+ )
 
-;; Eshell
-;; https://www.masteringemacs.org/article/complete-guide-mastering-eshell
+ (if (eq system-type 'windows-nt)
+     (global-set-key (kbd "C-c C-q") (lambda () (interactive) (shell-command "explorer .")))
+     (global-set-key (kbd "C-c C-q") (lambda () (interactive) (shell-command "nautilus . &"))))
+
+ (if (eq system-type 'windows-nt)
+     (global-set-key (kbd "C-c q")   (lambda () (interactive) (shell-command "start \"\" \"C:\\Program Files\\Git\\git-bash.exe\"")))
+     (global-set-key (kbd "C-c q")   (lambda () (interactive) (shell-command "gnome-terminal"))))
+
+ ;; Eshell
+ ;; https://www.masteringemacs.org/article/complete-guide-mastering-eshell
 
 (global-set-key (kbd "C-x C-b") 'ibuffer)
   (setq ibuffer-saved-filter-groups
@@ -447,7 +457,7 @@ doom-zenburn
       ivy-display-style nil
       ivy-minibuffer-faces nil)
 
-;; (global-set-key (kbd "C-S") 'swiper-isearch)
+(global-set-key (kbd "C-S") 'swiper-isearch)
 
 (add-hook 'org-mode-hook
   (lambda ()
@@ -657,6 +667,7 @@ doom-zenburn
 
 ;; R-like REPL evaluation
 (require 'eval-in-repl-python)
+(setq eir-repl-placement 'right)
 (define-key python-mode-map [(shift return)] 'eir-eval-in-python)
 
 (defun clear-repl ()
@@ -664,6 +675,22 @@ doom-zenburn
   (let ((comint-buffer-maximum-size 0))
     (comint-truncate-buffer)))
 (add-hook 'inferior-python-mode-hook (lambda () (local-set-key (kbd "C-c l") 'clear-repl)))
+
+
+(defun select-current-line ()
+  (interactive)
+  (end-of-line) ; move to end of line
+  (set-mark (line-beginning-position)))
+
+(defun my-python-send-line ()
+"eval in python wont let us send lines withon def blocks. Lets beat it."
+  (interactive)
+  (select-current-line)
+  (eir-eval-in-python)
+  (forward-line 1)
+  (back-to-indentation))
+
+(define-key python-mode-map [(control return)] 'my-python-send-line)
 
 (with-eval-after-load 'poly-markdown+r-mode
   (require 'openwith) ;; required to open pdf in external viewer
@@ -692,6 +719,7 @@ doom-zenburn
   (require 'ess-r-mode)
   (define-key ess-r-mode-map [(control return)] nil)
   (define-key ess-r-mode-map [(shift return)] 'ess-eval-region-or-line-and-step)
+  (define-key ess-r-mode-map [(control return)] 'ess-eval-function-or-paragraph-and-step)
 
   ;; Remove smart-underscore and asign <- to another key
   (add-hook 'ess-r-mode-hook (lambda () (local-set-key (kbd "C-;") "<-")))
