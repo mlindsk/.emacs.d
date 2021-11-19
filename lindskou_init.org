@@ -846,6 +846,10 @@
    ;; https://emacs-lsp.github.io/lsp-mode/tutorials/how-to-turn-off/
    ;; https://emacs-lsp.github.io/lsp-ui/
 
+   ;; Installation:
+   ;; pip install python-language-server[all]
+   ;; pip install ipython
+
    ;; M-./M-; is bound to xref-find-definitions as usual for code funtion navigation
    ;; Show references for objects using M-S-?
 
