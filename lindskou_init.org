@@ -282,7 +282,7 @@
       (global-set-key (kbd "C-c C-q") (lambda () (interactive) (shell-command "nautilus . &"))))
 
   (if (eq system-type 'windows-nt)
-      (global-set-key (kbd "C-c q")   (lambda () (interactive) (shell-command "start \"\" \"C:\\Program Files\\Git\\git-bash.exe\" &")))
+      (global-set-key (kbd "C-c q")   (lambda () (interactive) (shell-command "wt"))) ;; Install WindowsTerminal
       (global-set-key (kbd "C-c q")   (lambda () (interactive) (shell-command "gnome-terminal"))))
 
   ;; Eshell
