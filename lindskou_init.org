@@ -644,9 +644,24 @@
 
   ;; Tab complete arguments inside functions (ESS)
   (global-set-key (kbd "<backtab>") 'company-complete-common)
-
 #+END_SRC
 
+* Custom Faces
+#+BEGIN_SRC emacs-lisp
+ (set-face-attribute 'company-tooltip-common nil
+ :foreground "orange"
+ :background "black"
+ :weight 'bold)
+
+ ;; (set-face-attribute 'company-tooltip nil
+ ;; :foreground "red"
+ ;; :background "white"
+ ;; :weight 'bold)
+
+ ;; (set-face-attribute 'font-lock-comment-face nil :foreground "#ca9c48")
+
+ ;; list-faces-display
+#+END_SRC
 * COMMENT Csharp
 #+BEGIN_SRC emacs-lisp
 (with-eval-after-load "csharp-mode"

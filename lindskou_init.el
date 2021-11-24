@@ -511,6 +511,20 @@ doom-zenburn
 ;; Tab complete arguments inside functions (ESS)
 (global-set-key (kbd "<backtab>") 'company-complete-common)
 
+(set-face-attribute 'company-tooltip-common nil
+:foreground "orange"
+:background "black"
+:weight 'bold)
+
+;; (set-face-attribute 'company-tooltip nil
+;; :foreground "red"
+;; :background "white"
+;; :weight 'bold)
+
+;; (set-face-attribute 'font-lock-comment-face nil :foreground "#ca9c48")
+
+;; list-faces-display
+
 ;; Enable inputting unicode symbols with TeX commands
 ;; toggle with C-\
 ;; (setq default-input-method 'TeX)
