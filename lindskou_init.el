@@ -99,9 +99,8 @@ doom-zenburn
  (put 'upcase-region 'disabled nil)             ;; Dont ask when upcase or downcase
  (put 'downcase-region 'disabled nil)
  (global-set-key (kbd "C-x f") 'find-file-at-point) ;;open included files at point
-
- (global-set-key (kbd "C-,") 'point-to-register) ;; jumpt to buffer position using registers
- (global-set-key (kbd "C-.") 'jump-to-register)
+ (global-set-key (kbd "C-x p") 'point-to-register) ;; jumpt to buffer position using registers
+ (global-set-key (kbd "C-x j") 'jump-to-register)
 
 ;;  ;; set transparency
 (defun toggle-transparency ()
@@ -269,6 +268,9 @@ doom-zenburn
 
 ;; enter new directory with "a"
 (put 'dired-find-alternate-file 'disabled nil)
+
+;; Larger font in dired
+(add-hook 'dired-mode-hook (lambda () (text-scale-increase 1.5)))
 
 ;; Show folders first
 (setq dired-listing-switches "-agho --group-directories-first"
@@ -512,18 +514,41 @@ doom-zenburn
 (global-set-key (kbd "<backtab>") 'company-complete-common)
 
 (set-face-attribute 'company-tooltip-common nil
-:foreground "orange"
-:background "black"
-:weight 'bold)
+ :foreground "orange"
+ :background "black"
+ :weight 'bold)
 
-;; (set-face-attribute 'company-tooltip nil
-;; :foreground "red"
-;; :background "white"
-;; :weight 'bold)
+ ;; (set-face-attribute 'company-tooltip nil
+ ;; :foreground "red"
+ ;; :background "white"
+ ;; :weight 'bold)
 
 ;; (set-face-attribute 'font-lock-comment-face nil :foreground "#ca9c48")
+;; (set-face-attribute 'font-lock-comment-delimiter-face nil :foreground "#ca9c48")
 
-;; list-faces-display
+;;       * the name of our face *
+(defface font-lock-operator-face
+  '((((class color)
+       :background "darkseagreen2")))
+  "Basic face for highlighting."
+  :group 'basic-faces)
+
+;; You'll have a hard time missing these colors
+(set-face-foreground 'font-lock-operator-face "red")
+(set-face-background 'font-lock-operator-face "blue")
+
+(font-lock-add-keywords 'python-mode
+  '(("\\(~^&\|!<>:=,.\\+*/%-]\\)" 0 'font-lock-operator-face)))
+;; font-lock-constant-face
+ ;; list-faces-display
+
+;; Install:
+;;  - (clojure) sudo apt install clojure
+;;  - (leiningen) https://purelyfunctional.tv/guide/how-to-install-clojure/
+(with-eval-after-load "julia-mode"
+  (require 'clojure-mode)
+  (require 'cider-mode)
+)
 
 ;; Enable inputting unicode symbols with TeX commands
 ;; toggle with C-\
@@ -532,6 +557,18 @@ doom-zenburn
 
   (require 'julia-mode)
   (require 'julia-repl)
+  (require 'lsp-mode)
+
+  (quelpa '(lsp-julia :fetcher github
+                      :repo "non-Jedi/lsp-julia"
+                      :files (:defaults "languageserver")))
+  
+  (use-package lsp-julia
+    :config
+    (setq lsp-julia-default-environment "~/.julia/environments/v1.4"))
+  
+  (add-hook 'julia-mode-hook #'lsp-mode)
+
   (setq julia-indent-offset 2)
   (add-hook 'julia-mode-hook 'julia-repl-mode) ;; always use minor mode
   
@@ -551,6 +588,8 @@ doom-zenburn
                            1 font-lock-warning-face t))))
 
   (add-hook 'julia-mode-hook (lambda () (customize-julia-mode)))
+
+  (add-to-list 'auto-mode-alist '("\\.[jJ]md" . poly-markdown-mode))
 )
 
 (with-eval-after-load 'latex
@@ -677,6 +716,9 @@ doom-zenburn
 (add-hook 'python-mode-hook (lambda () (require 'lsp-python-ms) (lsp)))
 (add-hook 'python-mode-hook (lambda () (require 'lsp-ui) (lsp)))
 (add-hook 'python-mode-hook 'my-python-hooks)
+
+;; Documentation of an object
+(define-key python-mode-map (kbd "C-c d") 'lsp-describe-thing-at-point)
 
 ;; Used for company completion
 (define-key python-mode-map (kbd "<backtab>") nil)

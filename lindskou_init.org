@@ -132,9 +132,8 @@
    (put 'upcase-region 'disabled nil)             ;; Dont ask when upcase or downcase
    (put 'downcase-region 'disabled nil)
    (global-set-key (kbd "C-x f") 'find-file-at-point) ;;open included files at point
-
-   (global-set-key (kbd "C-,") 'point-to-register) ;; jumpt to buffer position using registers
-   (global-set-key (kbd "C-.") 'jump-to-register)
+   (global-set-key (kbd "C-x p") 'point-to-register) ;; jumpt to buffer position using registers
+   (global-set-key (kbd "C-x j") 'jump-to-register)
 
   ;;  ;; set transparency
   (defun toggle-transparency ()
@@ -339,6 +338,9 @@
 #+BEGIN_SRC emacs-lisp
   ;; enter new directory with "a"
   (put 'dired-find-alternate-file 'disabled nil)
+
+  ;; Larger font in dired
+  (add-hook 'dired-mode-hook (lambda () (text-scale-increase 1.5)))
 
   ;; Show folders first
   (setq dired-listing-switches "-agho --group-directories-first"
@@ -658,10 +660,27 @@
  ;; :background "white"
  ;; :weight 'bold)
 
- ;; (set-face-attribute 'font-lock-comment-face nil :foreground "#ca9c48")
+;; (set-face-attribute 'font-lock-comment-face nil :foreground "#ca9c48")
+;; (set-face-attribute 'font-lock-comment-delimiter-face nil :foreground "#ca9c48")
 
+;; (font-lock-add-keywords 'python-mode
+;; '(("\\<\\(FIXME\\):" 1 'font-lock-warning-face prepend)
+;; ("\\<\\(and\\|or\\|not\\)\\>" . 'font-lock-keyword-face)))
+
+;; font-lock-constant-face
  ;; list-faces-display
 #+END_SRC
+* Clojure
+#+BEGIN_SRC emacs-lisp
+  ;; Install:
+  ;;  - (clojure) sudo apt install clojure
+  ;;  - (leiningen) https://purelyfunctional.tv/guide/how-to-install-clojure/
+  (with-eval-after-load "julia-mode"
+    (require 'clojure-mode)
+    (require 'cider-mode)
+  )
+#+END_SRC
+  
 * COMMENT Csharp
 #+BEGIN_SRC emacs-lisp
 (with-eval-after-load "csharp-mode"
@@ -685,6 +704,18 @@
 
   (require 'julia-mode)
   (require 'julia-repl)
+  (require 'lsp-mode)
+
+  (quelpa '(lsp-julia :fetcher github
+                      :repo "non-Jedi/lsp-julia"
+                      :files (:defaults "languageserver")))
+  
+  (use-package lsp-julia
+    :config
+    (setq lsp-julia-default-environment "~/.julia/environments/v1.4"))
+  
+  (add-hook 'julia-mode-hook #'lsp-mode)
+
   (setq julia-indent-offset 2)
   (add-hook 'julia-mode-hook 'julia-repl-mode) ;; always use minor mode
   
@@ -704,6 +735,8 @@
                            1 font-lock-warning-face t))))
 
   (add-hook 'julia-mode-hook (lambda () (customize-julia-mode)))
+
+  (add-to-list 'auto-mode-alist '("\\.[jJ]md" . poly-markdown-mode))
 )
 #+END_SRC
 
@@ -853,6 +886,7 @@
 | C-c C-l h h | describe thing at point (documentation)                 |
 | M-. and M-, | xref-find-definitions (jumpt to function def. etc.)     |
 | M-S-?       | lsp-ui-peek-find-references (list all objects at point) |
+| C-c C-v     | Check python file with flake                            |
   
 #+BEGIN_SRC emacs-lisp
 
@@ -900,6 +934,9 @@
   (add-hook 'python-mode-hook (lambda () (require 'lsp-ui) (lsp)))
   (add-hook 'python-mode-hook 'my-python-hooks)
 
+  ;; Documentation of an object
+  (define-key python-mode-map (kbd "C-c d") 'lsp-describe-thing-at-point)
+
   ;; Used for company completion
   (define-key python-mode-map (kbd "<backtab>") nil)
 
@@ -932,7 +969,6 @@
     (back-to-indentation))
 
   (define-key python-mode-map [(control return)] 'my-python-send-line)
-
 #+END_SRC
 
 * Polymode
