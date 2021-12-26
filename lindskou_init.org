@@ -339,7 +339,6 @@
   ;; enter new directory with "a"
   (put 'dired-find-alternate-file 'disabled nil)
 
-  ;; Larger font in dired
   (add-hook 'dired-mode-hook (lambda () (text-scale-increase 1.5)))
 
   ;; Show folders first
@@ -348,11 +347,17 @@
 	dired-omit-verbose nil)
 
   ;; https://www.emacswiki.org/emacs/DiredReuseDirectoryBuffer
-  (add-hook 'dired-mode-hook
-   (lambda ()
-    (define-key dired-mode-map (kbd "^")
-      (lambda () (interactive) (find-alternate-file "..")))
-   ))
+  (if (eq system-type 'windows-nt)
+    (add-hook 'dired-mode-hook
+       (lambda ()
+        (define-key dired-mode-map (kbd "\S-p")
+          (lambda () (interactive) (find-alternate-file "..")))
+       ))
+    (add-hook 'dired-mode-hook
+       (lambda ()
+        (define-key dired-mode-map (kbd "^")
+          (lambda () (interactive) (find-alternate-file ".."))))))
+
 
   ;; Copy (C) or Rename/Move (R) from window to window
   (setq dired-dwim-target t) 
@@ -367,14 +372,14 @@
 
   ;; https://github.com/Fuco1/dired-hacks
   ;; Dired-subtree and peep-dired
-  (eval-after-load "dired" '(progn
-    (require 'dired-subtree)
-    (define-key dired-mode-map (kbd "<tab>") 'dired-subtree-toggle)
-    (define-key dired-mode-map (kbd "<C-tab>") 'dired-subtree-remove)
-    (define-key dired-mode-map (kbd "P") 'peep-dired)))
+  ;; (eval-after-load "dired" '(progn
+  ;;   (require 'dired-subtree)
+  ;;   (define-key dired-mode-map (kbd "<tab>") 'dired-subtree-toggle)
+  ;;   (define-key dired-mode-map (kbd "<C-tab>") 'dired-subtree-remove)
+  ;;   (define-key dired-mode-map (kbd "P") 'peep-dired)))
 
-  (setq peep-dired-cleanup-on-disable t)
-  (setq peep-dired-ignored-extensions '("mp4" "pdf" "png"))
+  ;; (setq peep-dired-cleanup-on-disable t)
+  ;; (setq peep-dired-ignored-extensions '("mp4" "pdf" "png"))
 
 #+END_SRC
 
@@ -883,6 +888,8 @@
 | Command     | Description                                             |
 |-------------+---------------------------------------------------------|
 | C-c C-l     | lsp prefix                                              |
+| C-c l       | clear repl                                              |
+| C-c d       | lsp-describe-thing-atpoint                              |
 | C-c C-l h h | describe thing at point (documentation)                 |
 | M-. and M-, | xref-find-definitions (jumpt to function def. etc.)     |
 | M-S-?       | lsp-ui-peek-find-references (list all objects at point) |
@@ -890,20 +897,17 @@
   
 #+BEGIN_SRC emacs-lisp
 
-   ;; https://www.reddit.com/r/emacs/comments/m2fde6/lspmode/gqjy1mt/
-   ;; https://www.mortens.dev/blog/emacs-and-the-language-server-protocol/index.html
-   ;; https://www.mattduck.com/lsp-python-getting-started.html
-   ;; https://github.com/emacs-lsp/lsp-python-ms/issues/26 (LINTING)
-   ;; https://emacs-lsp.github.io/lsp-mode/tutorials/how-to-turn-off/
-   ;; https://emacs-lsp.github.io/lsp-ui/
+ ;; https://www.reddit.com/r/emacs/comments/m2fde6/lspmode/gqjy1mt/
+ ;; https://www.mortens.dev/blog/emacs-and-the-language-server-protocol/index.html
+ ;; https://www.mattduck.com/lsp-python-getting-started.html
+ ;; https://github.com/emacs-lsp/lsp-python-ms/issues/26 (LINTING)
+ ;; https://emacs-lsp.github.io/lsp-mode/tutorials/how-to-turn-off/
+ ;; https://emacs-lsp.github.io/lsp-ui/
 
-   ;; Installation:
-   ;; pip install python-language-server[all]
-   ;; pip install ipython
-
-   ;; M-./M-; is bound to xref-find-definitions as usual for code funtion navigation
-   ;; Show references for objects using M-S-?
-
+ ;; Installation:
+ ;; pip install python-language-server[all]
+ ;; pip install ipython
+(with-eval-after-load 'python
   (defun my-python-hooks()
        (interactive)
        (setq
@@ -961,7 +965,7 @@
     (set-mark (line-beginning-position)))
 
   (defun my-python-send-line ()
-  "eval in python wont let us send lines withon def blocks. Lets beat it."
+  "eval in python wont let us send lines within def blocks. Lets beat it."
     (interactive)
     (select-current-line)
     (eir-eval-in-python)
@@ -969,6 +973,25 @@
     (back-to-indentation))
 
   (define-key python-mode-map [(control return)] 'my-python-send-line)
+
+  (make-face 'font-lock-number-face)
+  (set-face-attribute 'font-lock-number-face nil :inherit font-lock-constant-face)
+  (setq font-lock-number-face 'font-lock-number-face)
+  (defvar font-lock-number "[0-9]+\\([eE][+-]?[0-9]*\\)?")
+  (defvar font-lock-hexnumber "0[xX][0-9a-fA-F]+")
+  (defun add-font-lock-numbers ()
+	  (font-lock-add-keywords nil (list
+			(list (concat "\\<\\(" font-lock-number "\\)\\>" )
+			 0 font-lock-number-face)
+			(list (concat "\\<\\(" font-lock-hexnumber "\\)\\>" )
+			 0 font-lock-number-face)
+			)))
+
+ (set-face-attribute 'font-lock-builtin-face nil
+ :foreground "#d9f989"
+ :weight 'bold)
+
+)
 #+END_SRC
 
 * Polymode
