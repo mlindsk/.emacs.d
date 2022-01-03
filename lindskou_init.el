@@ -215,9 +215,10 @@ doom-zenburn
      (add-to-list 'default-frame-alist '(font . "Ubuntu Mono-16.0"))    
  )
 
- (if (eq system-type 'windows-nt)
-     (global-set-key (kbd "C-c C-q") (lambda () (interactive) (shell-command "explorer .")))
-     (global-set-key (kbd "C-c C-q") (lambda () (interactive) (shell-command "nautilus . &"))))
+ ;; Alternatively use browse-url-of-dired-file in dired mode, bound to W
+  (if (eq system-type 'windows-nt)
+      (global-set-key (kbd "C-c C-q") (lambda () (interactive) (shell-command "explorer .")))
+      (global-set-key (kbd "C-c C-q") (lambda () (interactive) (shell-command "nautilus . &"))))
 
  (if (eq system-type 'windows-nt)
      (global-set-key (kbd "C-c q")   (lambda () (interactive) (shell-command "wt"))) ;; Install WindowsTerminal
@@ -269,20 +270,25 @@ doom-zenburn
 ;; enter new directory with "a"
 (put 'dired-find-alternate-file 'disabled nil)
 
-;; Larger font in dired
 (add-hook 'dired-mode-hook (lambda () (text-scale-increase 1.5)))
 
 ;; Show folders first
-(setq dired-listing-switches "-agho --group-directories-first"
-      dired-omit-files "^\\.[^.].*"
-      dired-omit-verbose nil)
+; (setq dired-listing-switches "-agho --group-directories-first"
+;	dired-omit-files "^\\.[^.].*"
+; 	dired-omit-verbose nil)
 
 ;; https://www.emacswiki.org/emacs/DiredReuseDirectoryBuffer
-(add-hook 'dired-mode-hook
- (lambda ()
-  (define-key dired-mode-map (kbd "^")
-    (lambda () (interactive) (find-alternate-file "..")))
- ))
+(if (eq system-type 'windows-nt)
+  (add-hook 'dired-mode-hook
+     (lambda ()
+      (define-key dired-mode-map (kbd "\S-q")
+        (lambda () (interactive) (find-alternate-file "..")))
+     ))
+  (add-hook 'dired-mode-hook
+     (lambda ()
+      (define-key dired-mode-map (kbd "\S-q") ;; (kbd "^")
+        (lambda () (interactive) (find-alternate-file ".."))))))
+
 
 ;; Copy (C) or Rename/Move (R) from window to window
 (setq dired-dwim-target t) 
@@ -297,14 +303,14 @@ doom-zenburn
 
 ;; https://github.com/Fuco1/dired-hacks
 ;; Dired-subtree and peep-dired
-(eval-after-load "dired" '(progn
-  (require 'dired-subtree)
-  (define-key dired-mode-map (kbd "<tab>") 'dired-subtree-toggle)
-  (define-key dired-mode-map (kbd "<C-tab>") 'dired-subtree-remove)
-  (define-key dired-mode-map (kbd "P") 'peep-dired)))
+;; (eval-after-load "dired" '(progn
+;;   (require 'dired-subtree)
+;;   (define-key dired-mode-map (kbd "<tab>") 'dired-subtree-toggle)
+;;   (define-key dired-mode-map (kbd "<C-tab>") 'dired-subtree-remove)
+;;   (define-key dired-mode-map (kbd "P") 'peep-dired)))
 
-(setq peep-dired-cleanup-on-disable t)
-(setq peep-dired-ignored-extensions '("mp4" "pdf" "png"))
+;; (setq peep-dired-cleanup-on-disable t)
+;; (setq peep-dired-ignored-extensions '("mp4" "pdf" "png"))
 
 (require 'visual-regexp-steroids)
 ;; (define-key global-map (Kbd "???") 'vr/replace)
@@ -674,75 +680,91 @@ doom-zenburn
  ;; Installation:
  ;; pip install python-language-server[all]
  ;; pip install ipython
+(with-eval-after-load 'python
+  (defun my-python-hooks()
+       (interactive)
+       (setq
+       indent-tabs-mode nil
+       tab-width 4
+       python-indent 4
+       python-shell-interpreter "ipython"
+       python-shell-interpreter-args "--simple-prompt -i"
+       ;; lsp specific
+       lsp-python-ms-auto-install-server t
+       lsp-python-ms-executable (executable-find "python-language-server")
+       lsp-diagnostics-provider :none
+       lsp-headerline-breadcrumb-enable nil
+       lsp-enable-text-document-color t
+       lsp-modeline-diagnostics-enable nil
+       lsp-modeline-code-actions-enable nil
+       lsp-signature-render-documentation nil
+       lsp-enable-file-watchers nil
+       lsp-enable-symbol-highlighting nil
+       lsp-enable-on-type-formatting nil
+       lsp-enable-indentation nil
+       lsp-enable-folding nil
+       lsp-ui-doc-enable nil
+       ;; https://emacs-lsp.github.io/lsp-mode/page/keybindings/
+       lsp-keymap-prefix "C-c C-l"))
 
- ;; M-./M-; is bound to xref-find-definitions as usual for code funtion navigation
- ;; Show references for objects using M-S-?
+  (add-hook 'python-mode-hook (lambda () (require 'lsp-python-ms) (lsp)))
+  (add-hook 'python-mode-hook (lambda () (require 'lsp-ui) (lsp)))
+  (add-hook 'python-mode-hook 'my-python-hooks)
 
-(defun my-python-hooks()
-     (interactive)
-     (setq
-     indent-tabs-mode nil
-     tab-width 4
-     python-indent 4
-     python-shell-interpreter "ipython"
-     python-shell-interpreter-args "--simple-prompt -i"
-     ;; lsp specific
-     lsp-python-ms-auto-install-server t
-     lsp-python-ms-executable (executable-find "python-language-server")
-     lsp-diagnostics-provider :none
-     lsp-headerline-breadcrumb-enable nil
-     lsp-enable-text-document-color t
-     lsp-modeline-diagnostics-enable nil
-     lsp-modeline-code-actions-enable nil
-     lsp-signature-render-documentation nil
-     lsp-enable-file-watchers nil
-     lsp-enable-symbol-highlighting nil
-     lsp-enable-on-type-formatting nil
-     lsp-enable-indentation nil
-     lsp-enable-folding nil
-     lsp-ui-doc-enable nil
-     ;; https://emacs-lsp.github.io/lsp-mode/page/keybindings/
-     lsp-keymap-prefix "C-c C-l"))
+  ;; Documentation of an object
+  (define-key python-mode-map (kbd "C-c d") 'lsp-describe-thing-at-point)
 
-(add-hook 'python-mode-hook (lambda () (require 'lsp-python-ms) (lsp)))
-(add-hook 'python-mode-hook (lambda () (require 'lsp-ui) (lsp)))
-(add-hook 'python-mode-hook 'my-python-hooks)
+  ;; Used for company completion
+  (define-key python-mode-map (kbd "<backtab>") nil)
 
-;; Documentation of an object
-(define-key python-mode-map (kbd "C-c d") 'lsp-describe-thing-at-point)
+  ;; Show references for objects using M-S-?
+  (define-key python-mode-map [remap xref-find-references] #'lsp-ui-peek-find-references)
 
-;; Used for company completion
-(define-key python-mode-map (kbd "<backtab>") nil)
+  ;; R-like REPL evaluation
+  (require 'eval-in-repl-python)
+  (setq eir-repl-placement 'right)
+  (define-key python-mode-map [(shift return)] 'eir-eval-in-python)
 
-;; Show references for objects using M-S-?
-(define-key python-mode-map [remap xref-find-references] #'lsp-ui-peek-find-references)
-
-;; R-like REPL evaluation
-(require 'eval-in-repl-python)
-(setq eir-repl-placement 'right)
-(define-key python-mode-map [(shift return)] 'eir-eval-in-python)
-
-(defun clear-repl ()
-  (interactive)
-  (let ((comint-buffer-maximum-size 0))
-    (comint-truncate-buffer)))
-(add-hook 'inferior-python-mode-hook (lambda () (local-set-key (kbd "C-c l") 'clear-repl)))
+  (defun clear-repl ()
+    (interactive)
+    (let ((comint-buffer-maximum-size 0))
+      (comint-truncate-buffer)))
+  (add-hook 'inferior-python-mode-hook (lambda () (local-set-key (kbd "C-c l") 'clear-repl)))
 
 
-(defun select-current-line ()
-  (interactive)
-  (end-of-line) ; move to end of line
-  (set-mark (line-beginning-position)))
+  (defun select-current-line ()
+    (interactive)
+    (end-of-line) ; move to end of line
+    (set-mark (line-beginning-position)))
 
-(defun my-python-send-line ()
-"eval in python wont let us send lines withon def blocks. Lets beat it."
-  (interactive)
-  (select-current-line)
-  (eir-eval-in-python)
-  (forward-line 1)
-  (back-to-indentation))
+  (defun my-python-send-line ()
+  "eval in python wont let us send lines within def blocks. Lets beat it."
+    (interactive)
+    (select-current-line)
+    (eir-eval-in-python)
+    (forward-line 1)
+    (back-to-indentation))
 
-(define-key python-mode-map [(control return)] 'my-python-send-line)
+  (define-key python-mode-map [(control return)] 'my-python-send-line)
+
+  (make-face 'font-lock-number-face)
+  (set-face-attribute 'font-lock-number-face nil :inherit font-lock-constant-face)
+  (setq font-lock-number-face 'font-lock-number-face)
+  (defvar font-lock-number "[0-9]+\\([eE][+-]?[0-9]*\\)?")
+  (defvar font-lock-hexnumber "0[xX][0-9a-fA-F]+")
+  (defun add-font-lock-numbers ()
+	  (font-lock-add-keywords nil (list
+			(list (concat "\\<\\(" font-lock-number "\\)\\>" )
+			 0 font-lock-number-face)
+			(list (concat "\\<\\(" font-lock-hexnumber "\\)\\>" )
+			 0 font-lock-number-face)
+			)))
+
+ (set-face-attribute 'font-lock-builtin-face nil
+ :foreground "#d9f989"
+ :weight 'bold)
+
+)
 
 (with-eval-after-load 'poly-markdown+r-mode
   (require 'openwith) ;; required to open pdf in external viewer
