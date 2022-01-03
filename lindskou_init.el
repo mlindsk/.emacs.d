@@ -215,9 +215,10 @@ doom-zenburn
      (add-to-list 'default-frame-alist '(font . "Ubuntu Mono-16.0"))    
  )
 
- (if (eq system-type 'windows-nt)
-     (global-set-key (kbd "C-c C-q") (lambda () (interactive) (shell-command "explorer .")))
-     (global-set-key (kbd "C-c C-q") (lambda () (interactive) (shell-command "nautilus . &"))))
+ ;; Alternatively use browse-url-of-dired-file in dired mode, bound to W
+  (if (eq system-type 'windows-nt)
+      (global-set-key (kbd "C-c C-q") (lambda () (interactive) (shell-command "explorer .")))
+      (global-set-key (kbd "C-c C-q") (lambda () (interactive) (shell-command "nautilus . &"))))
 
  (if (eq system-type 'windows-nt)
      (global-set-key (kbd "C-c q")   (lambda () (interactive) (shell-command "wt"))) ;; Install WindowsTerminal
@@ -269,28 +270,23 @@ doom-zenburn
 ;; enter new directory with "a"
 (put 'dired-find-alternate-file 'disabled nil)
 
-;; On windows it is a hassle to disable dead keys:
-;; (define-key dired-mode-map (kbd "C-o") 'dired-up-directory)
-;; (eval-after-load "dired" '(progn
-;; (define-key dired-mode-map (kbd "C-o") 'dired-up-directory) ))
-;; Larger font in dired
 (add-hook 'dired-mode-hook (lambda () (text-scale-increase 1.5)))
 
 ;; Show folders first
-(setq dired-listing-switches "-agho --group-directories-first"
-      dired-omit-files "^\\.[^.].*"
-      dired-omit-verbose nil)
+; (setq dired-listing-switches "-agho --group-directories-first"
+;	dired-omit-files "^\\.[^.].*"
+; 	dired-omit-verbose nil)
 
 ;; https://www.emacswiki.org/emacs/DiredReuseDirectoryBuffer
 (if (eq system-type 'windows-nt)
   (add-hook 'dired-mode-hook
      (lambda ()
-      (define-key dired-mode-map (kbd "\S-p")
+      (define-key dired-mode-map (kbd "\S-q")
         (lambda () (interactive) (find-alternate-file "..")))
      ))
   (add-hook 'dired-mode-hook
      (lambda ()
-      (define-key dired-mode-map (kbd "^")
+      (define-key dired-mode-map (kbd "\S-q") ;; (kbd "^")
         (lambda () (interactive) (find-alternate-file ".."))))))
 
 
