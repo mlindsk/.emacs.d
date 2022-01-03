@@ -526,19 +526,10 @@ doom-zenburn
 ;; (set-face-attribute 'font-lock-comment-face nil :foreground "#ca9c48")
 ;; (set-face-attribute 'font-lock-comment-delimiter-face nil :foreground "#ca9c48")
 
-;;       * the name of our face *
-(defface font-lock-operator-face
-  '((((class color)
-       :background "darkseagreen2")))
-  "Basic face for highlighting."
-  :group 'basic-faces)
+;; (font-lock-add-keywords 'python-mode
+;; '(("\\<\\(FIXME\\):" 1 'font-lock-warning-face prepend)
+;; ("\\<\\(and\\|or\\|not\\)\\>" . 'font-lock-keyword-face)))
 
-;; You'll have a hard time missing these colors
-(set-face-foreground 'font-lock-operator-face "red")
-(set-face-background 'font-lock-operator-face "blue")
-
-(font-lock-add-keywords 'python-mode
-  '(("\\(~^&\|!<>:=,.\\+*/%-]\\)" 0 'font-lock-operator-face)))
 ;; font-lock-constant-face
  ;; list-faces-display
 
