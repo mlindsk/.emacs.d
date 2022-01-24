@@ -102,6 +102,8 @@ doom-zenburn
  (global-set-key (kbd "C-x p") 'point-to-register) ;; jumpt to buffer position using registers
  (global-set-key (kbd "C-x j") 'jump-to-register)
 
+ (global-set-key (kbd "<f12>") 'compile)
+
 ;;  ;; set transparency
 (defun toggle-transparency ()
   (interactive)
@@ -761,7 +763,7 @@ doom-zenburn
 			)))
 
  (set-face-attribute 'font-lock-builtin-face nil
- :foreground "#d9f989"
+ :foreground "#ffc0cb"; "#d9f989" (green)
  :weight 'bold)
 
 )
@@ -781,7 +783,6 @@ doom-zenburn
   ;; https://github.com/polymode/polymode/issues/205
   ;; Remove those [exported] names which pandoc cant handle
   (setq polymode-exporter-output-file-format '"%s")
-
   ;; (global-set-key (kbd "<f11>") 'latex-mode)
   ;; (global-set-key (kbd "<f12>") 'poly-markdown+r-mode)
   ;; (add-hook 'markdown-mode-hook 'markdown-toggle-math)
