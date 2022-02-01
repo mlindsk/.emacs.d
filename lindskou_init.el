@@ -82,9 +82,9 @@ doom-zenburn
  (global-set-key (kbd "C-x k") 'kill-this-buffer) ;; Kill this buffer - instead of selecting.
  (fset 'yes-or-no-p 'y-or-n-p)                    ;; Avoid typing yes and no
  (set-cursor-color "#ffffff") 
- (require 'smooth-scrolling)
- (smooth-scrolling-mode 1)
- (setq smooth-scroll-margin 5)
+ ; (require 'smooth-scrolling)
+ ; (smooth-scrolling-mode 1)
+ ; (setq smooth-scroll-margin 5)
  (delete-selection-mode 1)                      ;; Make typing delete/overwrites selected text
  ;; (setq frame-title-format "%b")              ;; Filename in titlebar
  (menu-bar-mode -1)                             ;; Remove menu bar: Shortcut = F10
@@ -712,6 +712,9 @@ doom-zenburn
   (add-hook 'python-mode-hook (lambda () (require 'lsp-python-ms) (lsp)))
   (add-hook 'python-mode-hook (lambda () (require 'lsp-ui) (lsp)))
   (add-hook 'python-mode-hook 'my-python-hooks)
+
+  ;; ESS-like shortcut
+  (add-hook 'python-mode-hook (lambda () (local-set-key (kbd "C-;") "=")))
 
   ;; Documentation of an object
   (define-key python-mode-map (kbd "C-c d") 'lsp-describe-thing-at-point)
