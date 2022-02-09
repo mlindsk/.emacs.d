@@ -652,16 +652,23 @@
   (require 'company)
   (add-hook 'after-init-hook 'global-company-mode)
 
+  (setq company-idle-delay 0.01 ;; How long to wait before popping up
+        ; company-minimum-prefix-length 2 ;; Show the menu after one key press
+        ; company-tooltip-limit 15 ;; Limit on how many options to display
+        ; company-show-numbers t ;; Show numbers behind options
+        ; company-tooltip-align-annotations t ;; Align annotations to the right
+        ; company-require-match nil ;; Allow free typing
+        )
   ;; Tab complete arguments inside functions (ESS)
   (global-set-key (kbd "<backtab>") 'company-complete-common)
 #+END_SRC
 
 * Custom Faces
 #+BEGIN_SRC emacs-lisp
- (set-face-attribute 'company-tooltip-common nil
- :foreground "orange"
- :background "black"
- :weight 'bold)
+ ;; (set-face-attribute 'company-tooltip-common nil
+ ;; :foreground "orange"
+ ;; :background "black"
+ ;; :weight 'bold)
 
  ;; (set-face-attribute 'company-tooltip nil
  ;; :foreground "red"
@@ -886,14 +893,13 @@
 | NA          | lsp-workspace-folders-add                               |
   
 #+BEGIN_SRC emacs-lisp
-
+ ;; https://tychoish.com/post/emacs-and-lsp-mode/
  ;; https://www.reddit.com/r/emacs/comments/m2fde6/lspmode/gqjy1mt/
  ;; https://www.mortens.dev/blog/emacs-and-the-language-server-protocol/index.html
  ;; https://www.mattduck.com/lsp-python-getting-started.html
  ;; https://github.com/emacs-lsp/lsp-python-ms/issues/26 (LINTING)
  ;; https://emacs-lsp.github.io/lsp-mode/tutorials/how-to-turn-off/
  ;; https://emacs-lsp.github.io/lsp-ui/
-
  ;; Installation:
  ;; pip install python-language-server[all]
  ;; pip install ipython
@@ -920,7 +926,12 @@
        lsp-enable-on-type-formatting nil
        lsp-enable-indentation nil
        lsp-enable-folding nil
-       lsp-ui-doc-enable nil
+       ; lsp-ui-sideline-enable t
+       ; lsp-ui-doc-delay 0.1
+       ; lsp-ui-doc-include-signature t
+       ; lsp-ui-doc-enable nil
+       lsp-ui-sideline-update-mode 'line
+       lsp-log-io nil
        ;; https://emacs-lsp.github.io/lsp-mode/page/keybindings/
        lsp-keymap-prefix "C-c C-l"))
 
@@ -979,6 +990,11 @@
 			(list (concat "\\<\\(" font-lock-hexnumber "\\)\\>" )
 			 0 font-lock-number-face)
 			)))
+
+ ; From the doctor (lsp-doctor)
+ (setq gc-cons-threshold 200000000)
+ (setq read-process-output-max (* (* 1024 1024) 3)) ;; 1mb
+
 
  (set-face-attribute 'font-lock-builtin-face nil
  :foreground "#ffc0cb"; "#d9f989" (green)

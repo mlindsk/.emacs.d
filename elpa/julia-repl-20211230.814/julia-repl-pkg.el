@@ -1,0 +1,2 @@
+;;; Generated package description from julia-repl.el  -*- no-byte-compile: t -*-
+(define-package "julia-repl" "20211230.814" "A minor mode for a Julia REPL" '((emacs "25.1") (s "1.12")) :stars '(#("61" 0 2 (font-lock-face paradox-star-face))) :commit "e90b1ed2cc806262b0ee772dcc88f8da693d9210" :authors '(("Tamas Papp" . "tkpapp@gmail.com")) :maintainer '("Tamas Papp" . "tkpapp@gmail.com") :keywords '("languages") :url "https://github.com/tpapp/julia-repl")
