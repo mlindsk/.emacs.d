@@ -652,13 +652,15 @@
   (require 'company)
   (add-hook 'after-init-hook 'global-company-mode)
 
-  (setq company-idle-delay 0.01 ;; How long to wait before popping up
-        ; company-minimum-prefix-length 2 ;; Show the menu after one key press
-        ; company-tooltip-limit 15 ;; Limit on how many options to display
-        ; company-show-numbers t ;; Show numbers behind options
-        ; company-tooltip-align-annotations t ;; Align annotations to the right
-        ; company-require-match nil ;; Allow free typing
-        )
+  (setq company-backends '(company-capf))
+
+  (setq company-idle-delay 999 ;; How long to wait before popping up
+	; company-minimum-prefix-length 2 ;; Show the menu after one key press
+	; company-tooltip-limit 15 ;; Limit on how many options to display
+	; company-show-numbers t ;; Show numbers behind options
+	; company-tooltip-align-annotations t ;; Align annotations to the right
+	; company-require-match nil ;; Allow free typing
+	)
   ;; Tab complete arguments inside functions (ESS)
   (global-set-key (kbd "<backtab>") 'company-complete-common)
 #+END_SRC
@@ -685,7 +687,7 @@
 ;; font-lock-constant-face
  ;; list-faces-display
 #+END_SRC
-* Clojure
+* COMMENT Clojure
 #+BEGIN_SRC emacs-lisp
   ;; Install:
   ;;  - (clojure) sudo apt install clojure
@@ -696,7 +698,7 @@
   )
 #+END_SRC
   
-* Julia
+* COMMENT Julia
 #+BEGIN_SRC emacs-lisp
 ;; Enable inputting unicode symbols with TeX commands
 ;; toggle with C-\
@@ -893,6 +895,7 @@
 | NA          | lsp-workspace-folders-add                               |
   
 #+BEGIN_SRC emacs-lisp
+ ;; https://vxlabs.com/2018/06/08/python-language-server-with-emacs-and-lsp-mode/
  ;; https://tychoish.com/post/emacs-and-lsp-mode/
  ;; https://www.reddit.com/r/emacs/comments/m2fde6/lspmode/gqjy1mt/
  ;; https://www.mortens.dev/blog/emacs-and-the-language-server-protocol/index.html
@@ -917,7 +920,13 @@
        lsp-python-ms-executable (executable-find "python-language-server")
        lsp-diagnostics-provider :none
        lsp-headerline-breadcrumb-enable nil
-       lsp-enable-text-document-color t
+       lsp-completion-enable t
+       ; lsp-request-while-no-input nil
+       ; lsp-completion-at-point nil
+       ; lsp-completion-provider :none
+       ; lsp-prefer-capf nil
+       lsp-enable-snippet nil
+       lsp-enable-text-document-color nil
        lsp-modeline-diagnostics-enable nil
        lsp-modeline-code-actions-enable nil
        lsp-signature-render-documentation nil
@@ -930,7 +939,7 @@
        ; lsp-ui-doc-delay 0.1
        ; lsp-ui-doc-include-signature t
        ; lsp-ui-doc-enable nil
-       lsp-ui-sideline-update-mode 'line
+       ; lsp-ui-sideline-update-mode 'line
        lsp-log-io nil
        ;; https://emacs-lsp.github.io/lsp-mode/page/keybindings/
        lsp-keymap-prefix "C-c C-l"))
@@ -993,7 +1002,7 @@
 
  ; From the doctor (lsp-doctor)
  (setq gc-cons-threshold 200000000)
- (setq read-process-output-max (* (* 1024 1024) 3)) ;; 1mb
+ (setq read-process-output-max (* (* 1024 1024) 3)) ;; 3mb
 
 
  (set-face-attribute 'font-lock-builtin-face nil
@@ -1002,6 +1011,8 @@
 
 )
 #+END_SRC
+
+#+RESULTS:
 
 * Polymode
 #+BEGIN_SRC emacs-lisp

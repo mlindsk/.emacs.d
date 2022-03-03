@@ -518,7 +518,9 @@ doom-zenburn
 (require 'company)
 (add-hook 'after-init-hook 'global-company-mode)
 
-(setq company-idle-delay 0.01 ;; How long to wait before popping up
+(setq company-backends '(company-capf))
+
+(setq company-idle-delay 999 ;; How long to wait before popping up
       ; company-minimum-prefix-length 2 ;; Show the menu after one key press
       ; company-tooltip-limit 15 ;; Limit on how many options to display
       ; company-show-numbers t ;; Show numbers behind options
@@ -547,56 +549,6 @@ doom-zenburn
 
 ;; font-lock-constant-face
  ;; list-faces-display
-
-;; Install:
-;;  - (clojure) sudo apt install clojure
-;;  - (leiningen) https://purelyfunctional.tv/guide/how-to-install-clojure/
-(with-eval-after-load "julia-mode"
-  (require 'clojure-mode)
-  (require 'cider-mode)
-)
-
-;; Enable inputting unicode symbols with TeX commands
-;; toggle with C-\
-;; (setq default-input-method 'TeX)
-(with-eval-after-load "julia-mode"
-
-  (require 'julia-mode)
-  (require 'julia-repl)
-  (require 'lsp-mode)
-
-  (quelpa '(lsp-julia :fetcher github
-                      :repo "non-Jedi/lsp-julia"
-                      :files (:defaults "languageserver")))
-  
-  (use-package lsp-julia
-    :config
-    (setq lsp-julia-default-environment "~/.julia/environments/v1.4"))
-  
-  (add-hook 'julia-mode-hook #'lsp-mode)
-
-  (setq julia-indent-offset 2)
-  (add-hook 'julia-mode-hook 'julia-repl-mode) ;; always use minor mode
-  
-  ;; ESS-like keybindings
-  (define-key julia-repl-mode-map [(control return)] nil)
-  (define-key julia-repl-mode-map [(shift return)] 'julia-repl-send-line)
-
-  (define-key julia-repl-mode-map (kbd "C-c C-d") nil)
-  (define-key julia-repl-mode-map (kbd "C-c C-v") 'julia-repl-doc)
-
-  (defun customize-julia-mode ()
-    "Customize julia-mode."
-    (interactive)
-    ;; my customizations go here
-    (font-lock-add-keywords nil
-                        '(("\\<\\(FIXME\\|TODO\\|QUESTION\\|NOTE\\)"
-                           1 font-lock-warning-face t))))
-
-  (add-hook 'julia-mode-hook (lambda () (customize-julia-mode)))
-
-  (add-to-list 'auto-mode-alist '("\\.[jJ]md" . poly-markdown-mode))
-)
 
 (with-eval-after-load 'latex
 
@@ -679,7 +631,8 @@ doom-zenburn
           (lambda () (define-key c++-mode-map (kbd "C-c C-l") 'compile)))
 )
 
-;; https://tychoish.com/post/emacs-and-lsp-mode/
+;; https://vxlabs.com/2018/06/08/python-language-server-with-emacs-and-lsp-mode/
+ ;; https://tychoish.com/post/emacs-and-lsp-mode/
  ;; https://www.reddit.com/r/emacs/comments/m2fde6/lspmode/gqjy1mt/
  ;; https://www.mortens.dev/blog/emacs-and-the-language-server-protocol/index.html
  ;; https://www.mattduck.com/lsp-python-getting-started.html
@@ -703,7 +656,13 @@ doom-zenburn
        lsp-python-ms-executable (executable-find "python-language-server")
        lsp-diagnostics-provider :none
        lsp-headerline-breadcrumb-enable nil
-       lsp-enable-text-document-color t
+       lsp-completion-enable t
+       ; lsp-request-while-no-input nil
+       ; lsp-completion-at-point nil
+       ; lsp-completion-provider :none
+       ; lsp-prefer-capf nil
+       lsp-enable-snippet nil
+       lsp-enable-text-document-color nil
        lsp-modeline-diagnostics-enable nil
        lsp-modeline-code-actions-enable nil
        lsp-signature-render-documentation nil
@@ -716,7 +675,7 @@ doom-zenburn
        ; lsp-ui-doc-delay 0.1
        ; lsp-ui-doc-include-signature t
        ; lsp-ui-doc-enable nil
-       lsp-ui-sideline-update-mode 'line
+       ; lsp-ui-sideline-update-mode 'line
        lsp-log-io nil
        ;; https://emacs-lsp.github.io/lsp-mode/page/keybindings/
        lsp-keymap-prefix "C-c C-l"))
@@ -779,7 +738,7 @@ doom-zenburn
 
  ; From the doctor (lsp-doctor)
  (setq gc-cons-threshold 200000000)
- (setq read-process-output-max (* (* 1024 1024) 3)) ;; 1mb
+ (setq read-process-output-max (* (* 1024 1024) 3)) ;; 3mb
 
 
  (set-face-attribute 'font-lock-builtin-face nil
