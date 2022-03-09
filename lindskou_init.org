@@ -273,22 +273,22 @@
 * Shell
 
 #+BEGIN_SRC emacs-lisp
- (if (eq system-type 'windows-nt)
-     ;; https://colhountech.com/2016/07/12/how-to-install-ubuntu-fonts-on-windows-10/
-      (add-to-list 'default-frame-alist '(font . "Ubuntu Mono-16.0"))    
-  )
-
-  ;; Alternatively use browse-url-of-dired-file in dired mode, bound to W
-   (if (eq system-type 'windows-nt)
-       (global-set-key (kbd "C-c C-q") (lambda () (interactive) (shell-command "explorer .")))
-       (global-set-key (kbd "C-c C-q") (lambda () (interactive) (shell-command "nautilus . &"))))
-
   (if (eq system-type 'windows-nt)
-      (global-set-key (kbd "C-c q")   (lambda () (interactive) (shell-command "wt"))) ;; Install WindowsTerminal
-      (global-set-key (kbd "C-c q")   (lambda () (interactive) (shell-command "gnome-terminal"))))
+      ;; https://colhountech.com/2016/07/12/how-to-install-ubuntu-fonts-on-windows-10/
+       (add-to-list 'default-frame-alist '(font . "Ubuntu Mono-16.0"))    
+   )
 
-  ;; Eshell
-  ;; https://www.masteringemacs.org/article/complete-guide-mastering-eshell
+   ;; Alternatively use browse-url-of-dired-file in dired mode, bound to W
+    (if (eq system-type 'windows-nt)
+	(global-set-key (kbd "C-c C-q") (lambda () (interactive) (shell-command "explorer .")))
+	(global-set-key (kbd "C-c C-q") (lambda () (interactive) (shell-command "nautilus . &"))))
+
+   (if (eq system-type 'windows-nt)
+       (global-set-key (kbd "C-c q")   (lambda () (interactive) (shell-command "wt -d ."))) ;; Install WindowsTerminal
+     (global-set-key (kbd "C-c q")   (lambda () (interactive) (shell-command "gnome-terminal"))))
+
+   ;; Eshell
+   ;; https://www.masteringemacs.org/article/complete-guide-mastering-eshell
 #+END_SRC
 
 * Ibuffer
