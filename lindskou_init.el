@@ -104,7 +104,7 @@ doom-zenburn
 
  (global-set-key (kbd "<f12>") 'compile)
 
-;;  ;; set transparency
+;; set transparency
 (defun toggle-transparency ()
   (interactive)
   (let ((alpha (frame-parameter nil 'alpha)))
@@ -117,6 +117,8 @@ doom-zenburn
 	      100)
 	 '(90 . 90) '(100 . 100)))))
 (global-set-key (kbd "C-c t") 'toggle-transparency)
+
+(beacon-mode 1)
 
 ;; Original idea from
 ;; http://www.opensubscriber.com/message/emacs-devel@gnu.org/10971693.html
@@ -223,8 +225,8 @@ doom-zenburn
       (global-set-key (kbd "C-c C-q") (lambda () (interactive) (shell-command "nautilus . &"))))
 
  (if (eq system-type 'windows-nt)
-     (global-set-key (kbd "C-c q")   (lambda () (interactive) (shell-command "wt"))) ;; Install WindowsTerminal
-     (global-set-key (kbd "C-c q")   (lambda () (interactive) (shell-command "gnome-terminal"))))
+     (global-set-key (kbd "C-c q")   (lambda () (interactive) (shell-command "wt -d ."))) ;; Install WindowsTerminal
+   (global-set-key (kbd "C-c q")   (lambda () (interactive) (shell-command "gnome-terminal"))))
 
  ;; Eshell
  ;; https://www.masteringemacs.org/article/complete-guide-mastering-eshell
@@ -642,6 +644,7 @@ doom-zenburn
  ;; Installation:
  ;; pip install python-language-server[all]
  ;; pip install ipython
+ ;; pip install python-lsp-server
 (with-eval-after-load 'python
   (defun my-python-hooks()
        (interactive)
@@ -739,6 +742,15 @@ doom-zenburn
  ; From the doctor (lsp-doctor)
  (setq gc-cons-threshold 200000000)
  (setq read-process-output-max (* (* 1024 1024) 3)) ;; 3mb
+
+ ;; Some styling
+ (defun highlight-todos ()
+    (interactive)
+    (font-lock-add-keywords nil
+	  '(("\\<\\(FIXME:\\|TODO:\\|QUESTION:\\|NOTE:\\|BUG:\\)"
+	     1 font-lock-warning-face t))))
+
+ (add-hook 'prog-mode-hook (lambda ()(highlight-todos)))
 
 
  (set-face-attribute 'font-lock-builtin-face nil
