@@ -653,7 +653,8 @@ doom-zenburn
        tab-width 4
        python-indent 4
        python-shell-interpreter "ipython"
-       python-shell-interpreter-args "--simple-prompt -i"
+       python-shell-interpreter-args "--simple-prompt"
+       ;; python-shell-interpreter-args "--simple-prompt -i"
        ;; lsp specific
        lsp-python-ms-auto-install-server t
        lsp-python-ms-executable (executable-find "python-language-server")
@@ -758,6 +759,13 @@ doom-zenburn
  :weight 'bold)
 
 )
+
+; C-u 0 M-x byte-recompile-directory
+(require 'ein)
+(setq ein:auto-save-on-execute t)
+;(setq ein:output-area-inlined-images t)
+; (setq ein:complete-on-dot t)
+; (setq ein:truncate-long-cell-output t)
 
 (with-eval-after-load 'poly-markdown+r-mode
   (require 'openwith) ;; required to open pdf in external viewer

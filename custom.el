@@ -23,7 +23,7 @@
  '(org-agenda-files
    '("~/Documents/phd/publications/jti_sparta_paper/TODO.org" "~/Documents/phd/software/ess/TODO.org"))
  '(package-selected-packages
-   '(beacon ein zzz-to-char quelpa lsp-julia cider clojure-mode pydoc eval-in-repl lsp-python-ms lsp-ui use-package rainbow-delimiters kaolin-themes scala-mode dired-sidebar telephone-line treemacs all-the-icons-ivy all-the-icons-dired all-the-icons neotree csharp-mode lsp-mode eldoc isend-mode python-x ivy-avy jazz-theme counsel solarized-theme dired-rainbow doom-themes dockerfile-mode swiper ido-grid-mode peep-dired diredfl dired-subtree jedi company-jedi subatomic-theme dracula-theme visual-regexp visual-regexp-steroids projectile fireplace expand-region flymake julia-shell company-irony poly-noweb ess zenburn-theme yasnippet-snippets textmate-to-yas spaceline poly-R pollen-mode hc-zenburn-theme ggtags buffer-move auctex))
+   '(ein yaml zel beacon zzz-to-char quelpa lsp-julia cider clojure-mode pydoc eval-in-repl lsp-python-ms lsp-ui use-package rainbow-delimiters kaolin-themes scala-mode dired-sidebar telephone-line treemacs all-the-icons-ivy all-the-icons-dired all-the-icons neotree csharp-mode lsp-mode eldoc isend-mode python-x ivy-avy jazz-theme counsel solarized-theme dired-rainbow doom-themes dockerfile-mode swiper ido-grid-mode peep-dired diredfl dired-subtree jedi company-jedi subatomic-theme dracula-theme visual-regexp visual-regexp-steroids projectile fireplace expand-region flymake julia-shell company-irony poly-noweb ess zenburn-theme yasnippet-snippets textmate-to-yas spaceline poly-R pollen-mode hc-zenburn-theme ggtags buffer-move auctex))
  '(paradox-github-token t)
  '(pdf-view-midnight-colors '("#DCDCCC" . "#383838"))
  '(rustic-ansi-faces

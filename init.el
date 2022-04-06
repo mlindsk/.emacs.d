@@ -10,8 +10,10 @@
 
 ;; Load paths
 ;; ----------
-(add-to-list 'load-path "~/.emacs.d/elpa/")
-(add-to-list 'custom-theme-load-path "~/.emacs.d/elpa/")
+;; (add-to-list 'load-path "~/.emacs.d/elpa/")
+;; (add-to-list 'custom-theme-load-path "~/.emacs.d/elpa/")
+(add-to-list 'load-path (expand-file-name "~/.emacs.d/elpa/"))
+(add-to-list 'custom-theme-load-path (expand-file-name "~/.emacs.d/elpa/"))
 
 ;; My init file
 (org-babel-load-file (expand-file-name "~/.emacs.d/lindskou_init.org"))

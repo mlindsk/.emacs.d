@@ -692,18 +692,7 @@
 
 ;; font-lock-constant-face
  ;; list-faces-display
-#+END_SRC
-* COMMENT Clojure
-#+BEGIN_SRC emacs-lisp
-  ;; Install:
-  ;;  - (clojure) sudo apt install clojure
-  ;;  - (leiningen) https://purelyfunctional.tv/guide/how-to-install-clojure/
-  (with-eval-after-load "julia-mode"
-    (require 'clojure-mode)
-    (require 'cider-mode)
-  )
-#+END_SRC
-  
+#+END_SRC  
 * COMMENT Julia
 #+BEGIN_SRC emacs-lisp
 ;; Enable inputting unicode symbols with TeX commands
@@ -923,7 +912,8 @@
        tab-width 4
        python-indent 4
        python-shell-interpreter "ipython"
-       python-shell-interpreter-args "--simple-prompt -i"
+       python-shell-interpreter-args "--simple-prompt"
+       ;; python-shell-interpreter-args "--simple-prompt -i"
        ;; lsp specific
        lsp-python-ms-auto-install-server t
        lsp-python-ms-executable (executable-find "python-language-server")
@@ -1030,7 +1020,17 @@
 )
 #+END_SRC
 
-#+RESULTS:
+* EIN
+#+BEGIN_SRC emacs-lisp
+  ; C-u 0 M-x byte-recompile-directory
+  ; https://github.com/millejoh/emacs-ipython-notebook/issues/738
+  ; Maybe do: choco install curl
+  (require 'ein)
+  (setq ein:auto-save-on-execute t)
+  ;(setq ein:output-area-inlined-images t)
+  ; (setq ein:complete-on-dot t)
+  ; (setq ein:truncate-long-cell-output t)
+#+END_SRC
 
 * Polymode
 #+BEGIN_SRC emacs-lisp
@@ -1182,5 +1182,4 @@
 
   (put 'narrow-to-region 'disabled nil)
   (put 'dired-find-alternate-file 'disabled nil)
-
 #+END_SRC
