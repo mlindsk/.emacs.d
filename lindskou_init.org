@@ -223,6 +223,7 @@
 * Spell Checking
 
 #+BEGIN_SRC emacs-lisp
+  ;; https://emacs.stackexchange.com/questions/41892/aspell-with-emacs-26-1-on-ms-windows
   ;; http://blog.binchen.org/posts/what-s-the-best-spell-check-set-up-in-emacs.html
   ;; find aspell and hunspell automatically
   (cond
@@ -1060,6 +1061,7 @@
 #+BEGIN_SRC emacs-lisp
   (with-eval-after-load 'ess
 
+    (setq inferior-ess-r-program "c:/Users/MadsLindskou/AppData/Local/Programs/R/R-4.1.3/bin/R.exe")
     (require 'ess-r-mode)
     (define-key ess-r-mode-map [(control return)] nil)
     (define-key ess-r-mode-map [(shift return)] 'ess-eval-region-or-line-and-step)

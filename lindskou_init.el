@@ -166,6 +166,7 @@ doom-zenburn
 (if (eq system-type 'gnu/linux)
   (telephone-line-mode 1))
 
+;; https://emacs.stackexchange.com/questions/41892/aspell-with-emacs-26-1-on-ms-windows
 ;; http://blog.binchen.org/posts/what-s-the-best-spell-check-set-up-in-emacs.html
 ;; find aspell and hunspell automatically
 (cond
@@ -761,6 +762,8 @@ doom-zenburn
 )
 
 ; C-u 0 M-x byte-recompile-directory
+; https://github.com/millejoh/emacs-ipython-notebook/issues/738
+; Maybe do: choco install curl
 (require 'ein)
 (setq ein:auto-save-on-execute t)
 ;(setq ein:output-area-inlined-images t)
@@ -790,6 +793,7 @@ doom-zenburn
 
 (with-eval-after-load 'ess
 
+  (setq inferior-ess-r-program "c:/Users/MadsLindskou/AppData/Local/Programs/R/R-4.1.3/bin/R.exe")
   (require 'ess-r-mode)
   (define-key ess-r-mode-map [(control return)] nil)
   (define-key ess-r-mode-map [(shift return)] 'ess-eval-region-or-line-and-step)
