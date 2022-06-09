@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: rmd_chunk2
+# key: py
+# --
+
+\`\`\`{python${1:}}
+$0
+\`\`\`

@@ -48,9 +48,19 @@ doom-zenburn
 (global-set-key [f5] 'mads/cycle-theme)
 
 ;; Backup Files
- (setq make-backup-files nil)          ;; stop creating those backup ~ files
- (setq auto-save-default nil)          ;; stop creating those #auto-save# files
+ ;; https://stackoverflow.com/questions/151945/how-do-i-control-how-emacs-makes-backup-files
  (setq auto-save-list-file-prefix nil) ;; Stop creating auto-save-list folder
+ (setq make-backup-files nil          ; backup of a file the first time it is saved (~ files)
+    ; backup-by-copying t               ; don't clobber symlinks
+    ; version-control t                 ; version numbers for backup files
+    ; delete-old-versions t             ; delete excess backup files silently
+    ; delete-by-moving-to-trash t
+    ; kept-old-versions 6               ; oldest versions to keep when a new numbered backup is made (default: 2)
+    ; kept-new-versions 9               ; newest versions to keep when a new numbered backup is made (default: 2)
+    auto-save-default nil               ; auto-save every buffer that visits a file
+    auto-save-timeout 999999999         ; number of seconds idle time before auto-save (default: 30)
+    auto-save-interval 99999999         ; number of keystrokes between auto-saves (default: 300)
+    )
 
  ;; When emacs starts, maximize the window
  (set-frame-parameter (selected-frame) 'fullscreen 'maximized)
@@ -119,6 +129,9 @@ doom-zenburn
 (global-set-key (kbd "C-c t") 'toggle-transparency)
 
 (beacon-mode 1)
+
+(wrap-region-mode t)
+(wrap-region-add-wrapper "*" "*" nil 'python-mode)
 
 ;; Original idea from
 ;; http://www.opensubscriber.com/message/emacs-devel@gnu.org/10971693.html
@@ -477,8 +490,12 @@ doom-zenburn
   (lambda ()
   (local-unset-key (kbd "C-'"))))
 
+(add-hook 'python-mode-hook
+  (lambda ()
+  (local-unset-key (kbd "C-;"))))
+
 (global-set-key (kbd "C-'") 'avy-goto-char)
-(global-set-key (kbd "C-:") 'avy-goto-char-2)
+(global-set-key (kbd "C-;") 'avy-goto-char-2)
 
 (global-set-key (kbd "C-x g") 'magit-status)
 
@@ -741,6 +758,15 @@ doom-zenburn
 			 0 font-lock-number-face)
 			)))
 
+ ; Pipenv setup:
+ ; C-c C-p a is bound to pipenv-activate
+ ; C-c C-p d is bound to pipenv-deactivate
+ ; C-c C-p s is bound to pipenv-shell
+ ; C-c C-p o is bound to pipenv-open
+ ; C-c C-p i is bound to pipenv-install
+ ; C-c C-p u is bound to pipenv-uninstall
+ (setq pipenv-projectile-after-switch-function #'pipenv-projectile-after-switch-extended)
+
  ; From the doctor (lsp-doctor)
  (setq gc-cons-threshold 200000000)
  (setq read-process-output-max (* (* 1024 1024) 3)) ;; 3mb
@@ -749,7 +775,7 @@ doom-zenburn
  (defun highlight-todos ()
     (interactive)
     (font-lock-add-keywords nil
-	  '(("\\<\\(FIXME:\\|TODO:\\|QUESTION:\\|NOTE:\\|BUG:\\)"
+	  '(("\\<\\(FIXME:\\|TODO:\\|QUESTION:\\|NOTE:\\|BUG:\\|TESTING:\\)"
 	     1 font-lock-warning-face t))))
 
  (add-hook 'prog-mode-hook (lambda ()(highlight-todos)))

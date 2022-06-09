@@ -13,7 +13,9 @@
  '(custom-safe-themes
    '("f56eb33cd9f1e49c5df0080a3e8a292e83890a61a89bceeaa481a5f183e8e3ef" "dcdd1471fde79899ae47152d090e3551b889edf4b46f00df36d653adc2bf550d" "834cbeacb6837f3ddca4a1a7b19b1af3834f36a701e8b15b628cad3d85c970ff" "28caf31770f88ffaac6363acfda5627019cac57ea252ceb2d41d98df6d87e240" "54f2d1fcc9bcadedd50398697618f7c34aceb9966a6cbaa99829eb64c0c1f3ca" default))
  '(eshell-visual-options '(("git" "diff" "show")))
+ '(exwm-floating-border-color "#262626")
  '(fci-rule-color "#383838")
+ '(highlight-tail-colors ((("#454845") . 0) (("#474f4f") . 20)))
  '(jdee-db-active-breakpoint-face-colors (cons "#F0F4FC" "#5d86b6"))
  '(jdee-db-requested-breakpoint-face-colors (cons "#F0F4FC" "#4F894C"))
  '(jdee-db-spec-breakpoint-face-colors (cons "#F0F4FC" "#B8C5DB"))
@@ -23,9 +25,11 @@
  '(org-agenda-files
    '("~/Documents/phd/publications/jti_sparta_paper/TODO.org" "~/Documents/phd/software/ess/TODO.org"))
  '(package-selected-packages
-   '(graphviz-dot-mode ein yaml zel beacon zzz-to-char quelpa lsp-julia cider clojure-mode pydoc eval-in-repl lsp-python-ms lsp-ui use-package rainbow-delimiters kaolin-themes scala-mode dired-sidebar telephone-line treemacs all-the-icons-ivy all-the-icons-dired all-the-icons neotree csharp-mode lsp-mode eldoc isend-mode python-x ivy-avy jazz-theme counsel solarized-theme dired-rainbow doom-themes dockerfile-mode swiper ido-grid-mode peep-dired diredfl dired-subtree jedi company-jedi subatomic-theme dracula-theme visual-regexp visual-regexp-steroids projectile fireplace expand-region flymake julia-shell company-irony poly-noweb ess zenburn-theme yasnippet-snippets textmate-to-yas spaceline poly-R pollen-mode hc-zenburn-theme ggtags buffer-move auctex))
+   '(pipenv wrap-region graphviz-dot-mode ein yaml zel beacon zzz-to-char quelpa lsp-julia cider clojure-mode pydoc eval-in-repl lsp-python-ms lsp-ui use-package rainbow-delimiters kaolin-themes scala-mode dired-sidebar telephone-line treemacs all-the-icons-ivy all-the-icons-dired all-the-icons neotree csharp-mode lsp-mode eldoc isend-mode python-x ivy-avy jazz-theme counsel solarized-theme dired-rainbow doom-themes dockerfile-mode swiper ido-grid-mode peep-dired diredfl dired-subtree jedi company-jedi subatomic-theme dracula-theme visual-regexp visual-regexp-steroids projectile fireplace expand-region flymake julia-shell company-irony poly-noweb ess zenburn-theme yasnippet-snippets textmate-to-yas spaceline poly-R pollen-mode hc-zenburn-theme ggtags buffer-move auctex))
  '(paradox-github-token t)
  '(pdf-view-midnight-colors '("#DCDCCC" . "#383838"))
+ '(pos-tip-background-color "#F3E7D3")
+ '(pos-tip-foreground-color "#79716c")
  '(rustic-ansi-faces
    ["#E5E9F0" "#99324B" "#4F894C" "#9A7500" "#3B6EA8" "#97365B" "#398EAC" "#3B4252"])
  '(vc-annotate-background "#2B2B2B")
