@@ -550,26 +550,6 @@ doom-zenburn
 ;; Tab complete arguments inside functions (ESS)
 (global-set-key (kbd "<backtab>") 'company-complete-common)
 
-;; (set-face-attribute 'company-tooltip-common nil
- ;; :foreground "orange"
- ;; :background "black"
- ;; :weight 'bold)
-
- ;; (set-face-attribute 'company-tooltip nil
- ;; :foreground "red"
- ;; :background "white"
- ;; :weight 'bold)
-
-;; (set-face-attribute 'font-lock-comment-face nil :foreground "#ca9c48")
-;; (set-face-attribute 'font-lock-comment-delimiter-face nil :foreground "#ca9c48")
-
-;; (font-lock-add-keywords 'python-mode
-;; '(("\\<\\(FIXME\\):" 1 'font-lock-warning-face prepend)
-;; ("\\<\\(and\\|or\\|not\\)\\>" . 'font-lock-keyword-face)))
-
-;; font-lock-constant-face
- ;; list-faces-display
-
 (with-eval-after-load 'latex
 
   ;; Jump to pdf/soure (C-c v and point and click)
@@ -759,6 +739,9 @@ doom-zenburn
 			)))
 
  ; Pipenv setup:
+ ; -------------
+ ; https://gist.github.com/bradtraversy/c70a93d6536ed63786c434707b898d55
+ ; https://pipenv-fork.readthedocs.io/en/latest/basics.html
  ; C-c C-p a is bound to pipenv-activate
  ; C-c C-p d is bound to pipenv-deactivate
  ; C-c C-p s is bound to pipenv-shell
@@ -787,14 +770,14 @@ doom-zenburn
 
 )
 
-; C-u 0 M-x byte-recompile-directory
-; https://github.com/millejoh/emacs-ipython-notebook/issues/738
-; Maybe do: choco install curl
-(require 'ein)
-(setq ein:auto-save-on-execute t)
-;(setq ein:output-area-inlined-images t)
-; (setq ein:complete-on-dot t)
-; (setq ein:truncate-long-cell-output t)
+;; (require 'lsp-mssql)
+(add-hook 'sql-mode-hook 'lsp)
+
+(setq lsp-mssql-connections
+      [(:server "dbserver-dataplatform-dev-westeurope.database.windows.net"
+                :database "db-dataplatform"
+                :user "mli@norlysenergytrading.com"
+                :password ".reds87.")])
 
 (with-eval-after-load 'poly-markdown+r-mode
   (require 'openwith) ;; required to open pdf in external viewer

@@ -690,7 +690,7 @@
   (global-set-key (kbd "<backtab>") 'company-complete-common)
 #+END_SRC
 
-* Custom Faces
+* COMMENT Custom Faces
 #+BEGIN_SRC emacs-lisp
  ;; (set-face-attribute 'company-tooltip-common nil
  ;; :foreground "orange"
@@ -1021,6 +1021,7 @@
  ; Pipenv setup:
  ; -------------
  ; https://gist.github.com/bradtraversy/c70a93d6536ed63786c434707b898d55
+ ; https://pipenv-fork.readthedocs.io/en/latest/basics.html
  ; C-c C-p a is bound to pipenv-activate
  ; C-c C-p d is bound to pipenv-deactivate
  ; C-c C-p s is bound to pipenv-shell
@@ -1050,7 +1051,18 @@
 )
 #+END_SRC
 
-* EIN
+* SQL
+#+BEGIN_SRC emacs-lisp
+;; (require 'lsp-mssql)
+(add-hook 'sql-mode-hook 'lsp)
+
+(setq lsp-mssql-connections
+      [(:server "dbserver-dataplatform-dev-westeurope.database.windows.net"
+                :database "db-dataplatform"
+                :user "mli@norlysenergytrading.com"
+                :password ".reds87.")])
+#+END_SRC
+* COMMENT EIN
 #+BEGIN_SRC emacs-lisp
   ; C-u 0 M-x byte-recompile-directory
   ; https://github.com/millejoh/emacs-ipython-notebook/issues/738
@@ -1062,7 +1074,7 @@
   ; (setq ein:truncate-long-cell-output t)
 #+END_SRC
 
-b* Polymode
+* Polymode
 #+BEGIN_SRC emacs-lisp
 (with-eval-after-load 'poly-markdown+r-mode
   (require 'openwith) ;; required to open pdf in external viewer
