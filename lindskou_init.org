@@ -1051,17 +1051,6 @@
 )
 #+END_SRC
 
-* SQL
-#+BEGIN_SRC emacs-lisp
-;; (require 'lsp-mssql)
-(add-hook 'sql-mode-hook 'lsp)
-
-(setq lsp-mssql-connections
-      [(:server "dbserver-dataplatform-dev-westeurope.database.windows.net"
-                :database "db-dataplatform"
-                :user "mli@norlysenergytrading.com"
-                :password ".reds87.")])
-#+END_SRC
 * COMMENT EIN
 #+BEGIN_SRC emacs-lisp
   ; C-u 0 M-x byte-recompile-directory
